@@ -1,0 +1,1 @@
+jsMath.Extension.Require('matheditor');

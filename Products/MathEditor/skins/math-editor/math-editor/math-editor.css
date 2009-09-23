@@ -1,0 +1,106 @@
+/* .math-editor {} */
+.math-editor-main { font-size:large; text-align:left }
+.math-editor-main math[display="block"] { display:block; }
+
+/* The editor (and if valid) */
+.mathmlEditor  {background-color: #ffffff; border: 1px solid #00ff00; margin: 5px; font-size: x-large; }
+.mathmlEditorValid {background-color: #ffffff; border: 1px solid #00ff00; margin: 5px; font-size: x-large; }
+
+/* changes the text right before an expandable block 
+   (illustrating that it won't be displayed if the block isn't filled out) */
+.expandable-extra-char { color:#cccccc; } /* opacity doesn't work in FF2 so set the color */
+
+/* Variables and content. */
+.variable     { color:#000000; } /* mml:ci */
+.math-content { color:#000000; } /* mml:*  */
+.highlighted .variable     { color:#ffffff; }
+.highlighted .math-content { color:#ffffff; }
+/*.highlighted {background-color:#6666ff; color:#ffffff;}*/
+.highlighted {background-color:#ccccff; }
+
+/* Unfortunately, with the way @hilighted is set, it can be set on an input.
+   In this case, the input should look the same as a normal input
+ */
+input.highlighted { width:1em; font-size:inherit; font-style:italic; font-family:serif;}
+
+
+textarea.cursor-invisible { height: 1em; font-size:inherit; font-family:serif; width:1em; border: 0; background-color: inherit; overflow:hidden; }
+.cursor { background-color: #f9f9f9; }
+textarea.cursor { height: 1em; font-size:inherit; border:0; }
+.optional { font-size:inherit; color: default; border: 1px dotted #e0e0e0; background-color: inherit;}
+.mathEditorInput { width:1em; font-size:inherit; font-family:monospace;}
+.mathEditorInputExpandable { width:1em; font-size:inherit; color: default; border: 1px dotted #e0e0e0; background-color: inherit;}
+
+/* This is for colored blocks using Ext.TextInput */
+
+.cursor { background-color: #f0f0f0; }
+textarea.cursor { background-color: #ffffff; border:1px solid #9999ff; }
+input.optional { color: default; border: 1px dotted #e0e0e0; background-color: inherit; }
+textarea.optional { color: default; border: 1px dotted #e0e0e0; background-color: inherit; }
+.mathEditorInput { background-color:#ffffcc; font-family:monospace; background-image: none; border: 1px solid #e0e0e0; }
+.mathEditorInputExpandable {color: default; border: 1px dotted #e0e0e0; }
+.block-empty {  }
+
+
+
+/* Special style for mphantom so what is beneth it is still visible */
+.mphantom { color: #eeeeee; }
+
+
+/* Used in the toolbar to "disable" buttons when the context is wrong without 
+ * Preventing the user from selecting them
+ */
+/* Disabled for now (NOTE: I didn't close the nested comments!!)
+.unadvised button { color: #b0b0b0; } /* categories * /
+a.unadvised { color: #b0b0b0 !important; } /* individual templates * /
+*/
+
+/* Invalid Content is content within a Presentation tag (defined in math-editor.xsl) */
+.invalid-content { background-color: #ff9999; }
+.presentation-math { color: #006600; }
+
+.type-error { border-bottom: 2px dotted #33CC33; font-size:inherit; }
+.parse-error { border-bottom: 2px dotted #CC3333; font-size:inherit; }
+
+
+.x-edit-remove  { background:transparent url(images/edit-remove.png) no-repeat !important; }
+.x-edit-cut     { background:transparent url(images/edit-cut.png) no-repeat !important; }
+.x-edit-copy    { background:transparent url(images/edit-copy.png) no-repeat !important; }
+.x-edit-paste   { background:transparent url(images/edit-paste.png) no-repeat !important; }
+.x-edit-undo    { background:transparent url(images/edit-undo.png) no-repeat !important; }
+.x-edit-redo    { background:transparent url(images/edit-redo.png) no-repeat !important; }
+.x-edit-preview { background:transparent url(images/document-print-preview.png) no-repeat !important; }
+.x-edit-source  { background:transparent url(images/document-properties.png) no-repeat !important; }
+.x-edit-help  { background:transparent url(images/help-browser.png) no-repeat !important; }
+
+.shortcut {
+font-family: monospace;
+color: #bbbbbb;
+padding-left: 5em;
+}
+
+/* Defined in Ext (except the font). Used to set the autoHeight of input boxes */
+.x-form-grow-sizer-matheditor {
+	font-family:monospace;
+	padding: 4px 3px;
+    position: absolute;
+    visibility:hidden;
+    left: -10000px;
+    top: -10000px;
+	white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    zoom:1;
+}
+.x-form-grow-sizer-matheditor p {
+    margin:0 !important;
+    border:0 none !important;
+    padding:0 !important;
+}
+
+
+
+/* Extjs resets CSS and it apparently affects the toolbar */
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}img,body,html{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;}q:before,q:after{content:'';}

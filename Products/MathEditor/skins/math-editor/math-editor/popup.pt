@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:pref="http://www.w3.org/2002/Math/preference"
+
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  tal:define="encoding here/portal_properties/site_properties/default_charset;
+                    dummy python:request.RESPONSE.setHeader('Content-Type','application/xhtml+xml;;charset=%s' % encoding);"
+
+  pref:renderer="css">
+  <head>
+    <title>Math Editor Page (Beta)</title>
+    <link rel="stylesheet" type="text/css" href="/extjs/resources/css/ext-all.css" />
+ 	<script type="text/javascript" src="/extjs/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="/extjs/ext-all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/plone/document.css" />
+    <link rel="stylesheet" type="text/css" href="/eip-help/eip-help.css" />
+    <link rel="stylesheet" type="text/css" href="./math-editor.css" />
+    <style type="text/css">
+/* Hacks because EIP-help takes some CSS liberties adding padding */
+td, th {
+border-collapse:collapse;
+padding:0;
+}
+ul {
+line-height: default;
+margin: 0;
+}
+li {
+margin-bottom:0;
+}
+    </style>
+
+    <!-- Add the parser requirements -->
+    <script type="text/javascript" src="./lib/tdop/json2.js" />
+    <script type="text/javascript" src="./lib/tdop/tokens.js" />
+    <script type="text/javascript" src="./lib/tdop/parse.js" />
+    <script type="text/javascript" src="./scripts/math-exceptions.js" />
+    <script type="text/javascript" src="./scripts/math-templates.js" />
+    <script type="text/javascript" src="./scripts/math-categories.js" />
+    <script type="text/javascript" src="./scripts/math-utils.js" />
+    <script type="text/javascript" src="./scripts/math-infer.js" />
+    <script type="text/javascript" src="./scripts/math-node.js" />
+    <script type="text/javascript" src="./scripts/math-model.js" />
+    <script type="text/javascript" src="./scripts/math-parser.js" />
+    <script type="text/javascript" src="./scripts/math-position.js" />
+    <script type="text/javascript" src="./scripts/math-render.js" />
+    <script type="text/javascript" src="./scripts/math-input.js" />
+    <script type="text/javascript" src="./scripts/math-editor.js" />
+    
+    <script type="text/javascript">
+        //<![CDATA[
+        Ext.onReady(function(){
+        	MathUtil.rootPath = "./";
+        	new MathEditor(document.getElementById('editor'));
+        	
+        	var cookie = new Ext.state.CookieProvider();
+			//var value = cookie.get('math-editor-popup-open');
+			//alert("open? "+value);
+			cookie.set('math-editor-popup-open', 'opened');
+			
+			
+			// Start a simple task that refocuses the window if the parent window was refreshed
+			var task = {
+			    run: function(){
+			    	var cookie = new Ext.state.CookieProvider();
+					var value = cookie.get('math-editor-popup-open');
+					if('focus' == value) {
+						cookie.set('math-editor-popup-open', 'opened');
+			
+			        	window.focus();
+			        }
+			    },
+			    interval: 1000 //1 second
+			}
+			var runner = new Ext.util.TaskRunner();
+			runner.start(task);
+        });
+        
+        window.onbeforeunload = function() {
+        	var cookie = new Ext.state.CookieProvider();
+			cookie.clear('math-editor-popup-open');
+        	//return "Before closing, are you sure you manually Cut or Copied MathML from this page and inserted it into the module?";
+        }
+    	//]]>
+    </script>
+    
+  </head>
+  <body style="padding-left:2em;padding-right:2em;">
+<div class="close-this-window"><a href="javascript:window.close()">Close this window</a></div>
+<div id="cnx_module_header"><h1 id="cnx_eip_help_title">MathML Editor <em>(Beta)</em></h1></div>
+
+<div class="reference-link">
+<div>
+	<a target="_blank" href="/content/m26312/">Math Editor Help</a> /
+	<a target="_blank" href="http://www.w3.org/TR/MathML2/">W3C MathML Reference</a>
+</div>
+
+<div>
+	<a target="_blank" href="/bug_submit_form">Report a Problem</a> /
+	<a href="mailto:feedback@cnx.org" onclick="this.href=['\u0040','il','ph','mailto:'].reverse().join('')+window.location.hostname+'?subject=MathML Editor Feedback';return true;">Submit Feedback</a>
+</div>
+</div>
+<div class="para" id="cnx_eip_help_description">
+The Connexions Math Editor allows you to create and
+edit MathML expressions for use in <a href="http://cnx.org/"
+target="_blank">Connexions</a>. To copy an expression to your clipboard
+double-click inside the editing box but outside the text of
+the expression, or press Ctrl+A (Select All).
+Then, press Ctrl+C (Copy) to copy the MathML.
+
+Return to your Connexions module, place
+your cursor in the editing area (either Edit-In-Place or Full-Source) and
+press Ctrl+V (Paste) to insert the MathML equation. For more information,
+read the Connexions Math Editor <a href="/content/m26312/">quickstart</a>, <a href="/content/m24560/"
+target="_blank">intermediate examples</a>, and <a href="/content/m24561/"
+target="_blank">reference manual</a>.
+      </div>
+
+    <textarea id="editor" cols="80" rows="20">&lt;m:math display="display" xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+    &lt;/m:math&gt;
+    </textarea>
+
+
+    <!-- Google Analytics tracking. -->
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try {
+        var benchmarkTracker = _gat._getTracker("UA-7903479-1");
+        benchmarkTracker._setDomainName('cnx.org');
+        benchmarkTracker._trackPageview();                
+        var overallTracker = _gat._getTracker("UA-5033010-1");
+        overallTracker._setDomainName('cnx.org');
+        overallTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+  </body>
+</html>
+

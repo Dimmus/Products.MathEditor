@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:pref="http://www.w3.org/2002/Math/preference"
+  pref:renderer="css">
+  <head>
+    <title>mathml-js Editor Test Page</title>
+    <link rel="stylesheet" type="text/css" href="../skins/math-editor/math-editor/math-editor.css" />
+
+	<!-- Ext.js requirements -->
+    <link rel="stylesheet" type="text/css" href="../lib/extjs/resources/css/ext-all.css" />
+ 	<script type="text/javascript" src="../lib/extjs/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../lib/extjs/ext-all-debug.js"></script>
+
+    <!-- Add the parser requirements -->
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/json2.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/tokens.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/parse.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-exceptions.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-templates.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-categories.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-utils.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-infer.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-node.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-model.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-parser.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-position.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-render.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-input.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-editor.js" />
+
+    <script type="text/javascript">
+    //<![CDATA[
+MathUtil.rootPath = "../skins/math-editor/math-editor/";
+
+Ext.onReady(function(){
+	var editor = new MathEditor(document.getElementById('editor'));
+});
+    //]]>
+    </script>
+  </head>
+  <body>
+
+	<textarea id="editor" cols="80" rows="20"></textarea>
+
+    <!-- Google Analytics tracking. -->
+    <script type="text/javascript" src="https://google-analytics.com/ga.js" />
+    <script type="text/javascript">
+      try {
+        var benchmarkTracker = _gat._getTracker("UA-7903479-1");
+        benchmarkTracker._setDomainName('cnx.org');
+        benchmarkTracker._trackPageview();                
+        var overallTracker = _gat._getTracker("UA-5033010-1");
+        overallTracker._setDomainName('cnx.org');
+        overallTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+  </body>
+</html>
+

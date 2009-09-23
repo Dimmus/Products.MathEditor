@@ -1,0 +1,6 @@
+Content MathML to tex: http://www.raleigh.ru/MathML/mmltex/online_action.php
+
+Provide drawer to format variables (subscript, color, anything presentation)
+
+Cannot select an interval, or change it easily...
+Handle conditions? max sum...

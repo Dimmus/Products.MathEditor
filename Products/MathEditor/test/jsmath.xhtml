@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:pref="http://www.w3.org/2002/Math/preference"
+  pref:renderer="css">
+  <head>
+    <title>mathml-js Editor Test Page</title>
+    <link rel="stylesheet" type="text/css" href="../kupustyles.css"/>
+    <link rel="stylesheet" type="text/css" href="../math-editor.css"/>
+    <script type="text/javascript" src="../lib/jsMath/jsMath.js"></script>
+    <script type="text/javascript" src="../lib/jsMath/extensions/matheditor.js"></script>
+    <script type="text/javascript" src="../lib/jsMath/_addMathEditorExtension.js"></script>
+    <script type="text/javascript" src="../lib/tdop/json2.js"></script>
+    <script type="text/javascript" src="../lib/tdop/tokens.js"></script>
+    <script type="text/javascript" src="../lib/tdop/parse.js"></script>
+    <script type="text/javascript" src="../script/math-templates.js"></script>
+    <script type="text/javascript" src="../script/math-categories.js"></script>
+    <script type="text/javascript" src="../script/math-utils.js"></script>
+    <script type="text/javascript" src="../script/math-document.js"></script>
+    <script type="text/javascript" src="../script/math-parser.js"></script>
+    <script type="text/javascript" src="../script/math-model.js"></script>
+    <script type="text/javascript" src="../script/math-render.js"></script>
+    <script type="text/javascript" src="../script/math-input.js"></script>
+    <script type="text/javascript" src="../script/math-editor.js"></script>
+    <script type="text/javascript" src="../script/math-toolbar.js"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+MathEditor.rootPath = "../";
+//DISABLE_ASSERTIONS = true;
+
+    //Build a XSLT that just imports. That way the path for subsequent imports is correct. 
+    var mml2tex = MmlEditor_Util.getXsl("xsl/mml2tex.xsl");
+
+    MmlEditor_Rend.math2texTransformer = new XSLTProcessor();
+    MmlEditor_Rend.math2texTransformer.importStylesheet(mml2tex);
+
+        var editor; //A global editor. Used for text entry at the bottom of the page
+        function ldWrapped() {
+          //clear the debug output
+          try {
+            ld();
+          } catch(e) {
+            if (e && e.name && e.message) e = e.name+': '+e.message;
+            alert(e);
+            return;
+          }
+    }
+        
+    function ld() {
+          var c2pXslt = MmlEditor_Util.getXsl("xsl/c2p.xsl");
+          var makeEditor = function(id, options) {
+            var ed = document.getElementById(id);
+            if(ed)
+              return new MathEditor(ed, c2pXslt, options);
+          }; 
+          var contentMathText = document.getElementById("output");
+          var i=0;
+          while(i<100) {
+            ed=makeEditor("editor-"+i, null/*no options*/);
+            if(!ed) break;
+            
+            var bc = document.createElement("div");
+            ed._rend_oBlock.parentNode.appendChild(bc);
+            var sourcePrinter = { breadcrumb:bc, updateState: function(newNode, event) {
+            try {
+              var bc = this.breadcrumb;
+              bc.innerHTML = "";
+              while(newNode && MmlEditor_Util.localName(newNode) != "math") {
+                if(bc.firstChild) {
+                  bc.insertBefore(document.createTextNode(" > "), bc.firstChild);
+                }
+                var label = MmlEditor_Util.localName(newNode);
+                switch(label) {
+                  case "apply"   :
+                    var child = MmlEditor_Util.xpathNode("*[1]", newNode);
+                    switch(MmlEditor_Util.localName(child)) {
+                      case "csymbol" : label = '@"'+child.getAttribute("definitionURL")+'"'; break;
+                      default : label = '@'+MmlEditor_Util.localName(child);
+                    }
+                }
+                bc.insertBefore(document.createTextNode(label), bc.firstChild);
+                newNode = newNode.parentNode;
+              }
+            }catch(e){alert("problem-updating-output:");}//catch
+            }};
+            ed._model_registerTool("breadcrumbs", sourcePrinter);
+          
+            
+            i++;
+          }
+    };
+    //]]>
+    </script>
+  </head>
+  <body onload="ldWrapped();">
+<h1>Several large Content MathML equations</h1>
+
+
+<h2 id='m0040'>m0040</h2>
+<table style='width:100%;'>
+<tr><td><textarea id='editor-0'>
+&lt;m:math display="block" xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:eq/&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:ci type="fn"&gt;power&lt;/m:ci&gt;
+	      &lt;m:ci&gt;s&lt;/m:ci&gt;
+	    &lt;/m:apply&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:times/&gt;
+	      &lt;m:apply&gt;
+		&lt;m:divide/&gt;
+		&lt;m:cn&gt;1&lt;/m:cn&gt;
+		&lt;m:ci&gt;T&lt;/m:ci&gt;
+	      &lt;/m:apply&gt;
+	      &lt;m:apply&gt;
+		&lt;m:int/&gt;
+		&lt;m:bvar&gt;&lt;m:ci&gt;t&lt;/m:ci&gt;&lt;/m:bvar&gt;
+		&lt;m:lowlimit&gt;&lt;m:cn&gt;0&lt;/m:cn&gt;&lt;/m:lowlimit&gt;
+		&lt;m:uplimit&gt;&lt;m:ci&gt;T&lt;/m:ci&gt;&lt;/m:uplimit&gt;
+		&lt;m:apply&gt;
+		  &lt;m:power/&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:plus/&gt;
+		    &lt;m:ci&gt;
+		      &lt;m:msub&gt;
+			&lt;m:mi&gt;a&lt;/m:mi&gt;
+			&lt;m:mn&gt;0&lt;/m:mn&gt;
+		      &lt;/m:msub&gt;
+		    &lt;/m:ci&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:sum/&gt;
+		      &lt;m:bvar&gt;&lt;m:ci&gt;k&lt;/m:ci&gt;&lt;/m:bvar&gt;
+		      &lt;m:lowlimit&gt;&lt;m:cn&gt;1&lt;/m:cn&gt;&lt;/m:lowlimit&gt;
+		      &lt;m:uplimit&gt;&lt;m:infinity/&gt;&lt;/m:uplimit&gt;
+		      &lt;m:apply&gt;
+			&lt;m:times/&gt;
+			&lt;m:ci&gt;
+			  &lt;m:msub&gt;
+			    &lt;m:mi&gt;a&lt;/m:mi&gt;
+			    &lt;m:mi&gt;k&lt;/m:mi&gt;
+			  &lt;/m:msub&gt;
+			&lt;/m:ci&gt;
+			&lt;m:apply&gt;
+			  &lt;m:cos/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:divide/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:times/&gt;
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			      &lt;m:pi/&gt;
+			      &lt;m:ci&gt;k&lt;/m:ci&gt;
+			      &lt;m:ci&gt;t&lt;/m:ci&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:ci&gt;T&lt;/m:ci&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:sum/&gt;
+		      &lt;m:bvar&gt;&lt;m:ci&gt;k&lt;/m:ci&gt;&lt;/m:bvar&gt;
+		      &lt;m:lowlimit&gt;&lt;m:cn&gt;1&lt;/m:cn&gt;&lt;/m:lowlimit&gt;
+		      &lt;m:uplimit&gt;&lt;m:infinity/&gt;&lt;/m:uplimit&gt;
+		      &lt;m:apply&gt;
+			&lt;m:times/&gt;
+			&lt;m:ci&gt;
+			  &lt;m:msub&gt;
+			    &lt;m:mi&gt;b&lt;/m:mi&gt;
+			    &lt;m:mi&gt;k&lt;/m:mi&gt;
+			  &lt;/m:msub&gt;
+			&lt;/m:ci&gt;
+			&lt;m:apply&gt;
+			  &lt;m:sin/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:divide/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:times/&gt;
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			      &lt;m:pi/&gt;
+			      &lt;m:ci&gt;k&lt;/m:ci&gt;
+			      &lt;m:ci&gt;t&lt;/m:ci&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:ci&gt;T&lt;/m:ci&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		  &lt;m:cn&gt;2&lt;/m:cn&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:apply&gt;
+	&lt;/m:math&gt;</textarea></td><td><p>
+<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" display="block"><m:semantics><mrow>
+	  <mrow xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>power</mi><mo></mo><mfenced><mi>s</mi></mfenced></mrow><mo>=</mo><mrow><mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mi>T</mi></mrow></mfrac></mrow><mo></mo><mrow><msubsup><mo>∫</mo><mrow><mn>0</mn></mrow><mrow><mi>T</mi></mrow></msubsup><msup><mfenced separators=" "><mrow><mrow><m:msub>
+			<m:mi>a</m:mi>
+			<m:mn>0</m:mn>
+		      </m:msub></mrow><mo>+</mo><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><mfenced separators=" "><mrow><mrow><m:msub>
+			    <m:mi>a</m:mi>
+			    <m:mi>k</m:mi>
+			  </m:msub></mrow><mo></mo><mrow><mi>cos</mi><mo></mo><mfenced separators=" "><mrow><mfrac><mrow><mrow><mn>2</mn><mo></mo><mi>π</mi><mo></mo><mi>k</mi><mo></mo><mi>t</mi></mrow></mrow><mrow><mi>T</mi></mrow></mfrac></mrow></mfenced></mrow></mrow></mfenced></mrow><mo>+</mo><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>∞</mi></mrow></munderover><mfenced separators=" "><mrow><mrow><m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mi>k</m:mi>
+			  </m:msub></mrow><mo></mo><mrow><mi>sin</mi><mo></mo><mfenced separators=" "><mrow><mfrac><mrow><mrow><mn>2</mn><mo></mo><mi>π</mi><mo></mo><mi>k</mi><mo></mo><mi>t</mi></mrow></mrow><mrow><mi>T</mi></mrow></mfrac></mrow></mfenced></mrow></mrow></mfenced></mrow></mrow></mfenced><mn>2</mn></msup><mo>d</mo><mi>t</mi></mrow></mrow></mrow>
+	</mrow><m:annotation-xml encoding="MathML-Content"><m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">power</m:ci>
+	      <m:ci>s</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:ci>T</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:int/>
+		<m:bvar><m:ci>t</m:ci></m:bvar>
+		<m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+		<m:uplimit><m:ci>T</m:ci></m:uplimit>
+		<m:apply>
+		  <m:power/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>a</m:mi>
+			<m:mn>0</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:apply>
+		      <m:sum/>
+		      <m:bvar><m:ci>k</m:ci></m:bvar>
+		      <m:lowlimit><m:cn>1</m:cn></m:lowlimit>
+		      <m:uplimit><m:infinity/></m:uplimit>
+		      <m:apply>
+			<m:times/>
+			<m:ci>
+			  <m:msub>
+			    <m:mi>a</m:mi>
+			    <m:mi>k</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:apply>
+			  <m:cos/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:times/>
+			      <m:cn>2</m:cn>
+			      <m:pi/>
+			      <m:ci>k</m:ci>
+			      <m:ci>t</m:ci>
+			    </m:apply>
+			    <m:ci>T</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:sum/>
+		      <m:bvar><m:ci>k</m:ci></m:bvar>
+		      <m:lowlimit><m:cn>1</m:cn></m:lowlimit>
+		      <m:uplimit><m:infinity/></m:uplimit>
+		      <m:apply>
+			<m:times/>
+			<m:ci>
+			  <m:msub>
+			    <m:mi>b</m:mi>
+			    <m:mi>k</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:apply>
+			  <m:sin/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:times/>
+			      <m:cn>2</m:cn>
+			      <m:pi/>
+			      <m:ci>k</m:ci>
+			      <m:ci>t</m:ci>
+			    </m:apply>
+			    <m:ci>T</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply></m:annotation-xml></m:semantics></m:math></p></td></tr>
+</table>
+<h2 id='m0046'>m0046</h2>
+<table style='width:100%;'>
+<tr><td><textarea id='editor-1'>
+&lt;m:math display="block" xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:eq/&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:apply&gt;
+		&lt;m:times/&gt;
+		&lt;m:apply&gt;
+		  &lt;m:ci type="fn"&gt;s&lt;/m:ci&gt;
+		  &lt;m:ci&gt;t&lt;/m:ci&gt;
+		&lt;/m:apply&gt;
+		&lt;m:apply&gt;
+		  &lt;m:cos/&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+		    &lt;m:cn&gt;2&lt;/m:cn&gt;
+		    &lt;m:pi/&gt;
+		    &lt;m:ci&gt;
+		      &lt;m:msub&gt;
+			&lt;m:mi&gt;f&lt;/m:mi&gt;
+			&lt;m:mi&gt;c&lt;/m:mi&gt;
+		      &lt;/m:msub&gt;
+		    &lt;/m:ci&gt;
+		    &lt;m:ci&gt;t&lt;/m:ci&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:plus/&gt;
+	      &lt;m:apply&gt;
+		&lt;m:times/&gt;
+		&lt;m:apply&gt;
+		  &lt;m:divide/&gt;
+		  &lt;m:cn&gt;1&lt;/m:cn&gt;
+		  &lt;m:cn&gt;2&lt;/m:cn&gt;
+		&lt;/m:apply&gt;
+		&lt;m:apply&gt;
+		  &lt;m:int/&gt;
+		  &lt;m:bvar&gt;
+		    &lt;m:ci&gt;f&lt;/m:ci&gt;
+		  &lt;/m:bvar&gt;
+		  &lt;m:lowlimit&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:minus/&gt;
+		      &lt;m:infinity/&gt; 
+		    &lt;/m:apply&gt;
+		  &lt;/m:lowlimit&gt;
+		  &lt;m:uplimit&gt;
+		    &lt;m:infinity/&gt;
+		  &lt;/m:uplimit&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:ci type="fn"&gt;S&lt;/m:ci&gt;
+		      &lt;m:ci&gt;f&lt;/m:ci&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:exp/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:times/&gt;
+			&lt;m:imaginaryi/&gt;
+			&lt;m:cn&gt;2&lt;/m:cn&gt;
+			&lt;m:pi/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:plus/&gt;
+			  &lt;m:ci&gt;f&lt;/m:ci&gt;
+			  &lt;m:ci&gt;
+			    &lt;m:msub&gt;
+			      &lt;m:mi&gt;f&lt;/m:mi&gt;
+			      &lt;m:mi&gt;c&lt;/m:mi&gt;
+			    &lt;/m:msub&gt;
+			  &lt;/m:ci&gt;			
+			&lt;/m:apply&gt;
+			&lt;m:ci&gt;t&lt;/m:ci&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	      &lt;m:apply&gt;
+		&lt;m:times/&gt;
+		&lt;m:apply&gt;
+		  &lt;m:divide/&gt;
+		  &lt;m:cn&gt;1&lt;/m:cn&gt;
+		  &lt;m:cn&gt;2&lt;/m:cn&gt;
+		&lt;/m:apply&gt;
+		&lt;m:apply&gt;
+		  &lt;m:int/&gt;
+		  &lt;m:bvar&gt;
+		    &lt;m:ci&gt;f&lt;/m:ci&gt;
+		  &lt;/m:bvar&gt;
+		  &lt;m:lowlimit&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:minus/&gt;
+		      &lt;m:infinity/&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:lowlimit&gt;
+		  &lt;m:uplimit&gt;
+		    &lt;m:infinity/&gt;
+		  &lt;/m:uplimit&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:ci type="fn"&gt;S&lt;/m:ci&gt;
+		      &lt;m:ci&gt;f&lt;/m:ci&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:exp/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:times/&gt;
+			&lt;m:imaginaryi/&gt;
+			&lt;m:cn&gt;2&lt;/m:cn&gt;
+			&lt;m:pi/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:minus/&gt;
+			  &lt;m:ci&gt;f&lt;/m:ci&gt;
+			  &lt;m:ci&gt;
+			    &lt;m:msub&gt;
+			      &lt;m:mi&gt;f&lt;/m:mi&gt;
+			      &lt;m:mi&gt;c&lt;/m:mi&gt;
+			    &lt;/m:msub&gt;
+			  &lt;/m:ci&gt;			
+			&lt;/m:apply&gt;
+			&lt;m:ci&gt;t&lt;/m:ci&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:apply&gt;
+	&lt;/m:math&gt;</textarea></td><td><p>
+<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" display="block"><m:semantics><mrow>
+	  <mrow xmlns="http://www.w3.org/1998/Math/MathML"><mfenced separators=" "><mrow><mrow><mi>s</mi><mo></mo><mfenced><mi>t</mi></mfenced></mrow><mo></mo><mrow><mi>cos</mi><mo></mo><mfenced separators=" "><mrow><mn>2</mn><mo></mo><mi>π</mi><mo></mo><mrow><m:msub>
+			<m:mi>f</m:mi>
+			<m:mi>c</m:mi>
+		      </m:msub></mrow><mo></mo><mi>t</mi></mrow></mfenced></mrow></mrow></mfenced><mo>=</mo><mrow><mrow><mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac></mrow><mo></mo><mrow><msubsup><mo>∫</mo><mrow><mrow><mo>-</mo><mi>∞</mi></mrow></mrow><mrow><mi>∞</mi></mrow></msubsup><mrow><mrow><mi>S</mi><mo></mo><mfenced><mi>f</mi></mfenced></mrow><mo></mo><msup><mi>ⅇ</mi><mrow><mi>ⅈ</mi><mo></mo><mn>2</mn><mo></mo><mi>π</mi><mo></mo><mfenced separators=" "><mrow><mi>f</mi><mo>+</mo><mrow><m:msub>
+			      <m:mi>f</m:mi>
+			      <m:mi>c</m:mi>
+			    </m:msub></mrow></mrow></mfenced><mo></mo><mi>t</mi></mrow></msup></mrow><mo>d</mo><mi>f</mi></mrow></mrow><mo>+</mo><mrow><mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac></mrow><mo></mo><mrow><msubsup><mo>∫</mo><mrow><mrow><mo>-</mo><mi>∞</mi></mrow></mrow><mrow><mi>∞</mi></mrow></msubsup><mrow><mrow><mi>S</mi><mo></mo><mfenced><mi>f</mi></mfenced></mrow><mo></mo><msup><mi>ⅇ</mi><mrow><mi>ⅈ</mi><mo></mo><mn>2</mn><mo></mo><mi>π</mi><mo></mo><mfenced separators=" "><mrow><mi>f</mi><mo>-</mo><mrow><m:msub>
+			      <m:mi>f</m:mi>
+			      <m:mi>c</m:mi>
+			    </m:msub></mrow></mrow></mfenced><mo></mo><mi>t</mi></mrow></msup></mrow><mo>d</mo><mi>f</mi></mrow></mrow></mrow></mrow>
+	</mrow><m:annotation-xml encoding="MathML-Content"><m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn">s</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:cos/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>f</m:mi>
+			<m:mi>c</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>f</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/> 
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn">S</m:ci>
+		      <m:ci>f</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+			<m:apply>
+			  <m:plus/>
+			  <m:ci>f</m:ci>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>f</m:mi>
+			      <m:mi>c</m:mi>
+			    </m:msub>
+			  </m:ci>			
+			</m:apply>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:cn>2</m:cn>
+		</m:apply>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>f</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn">S</m:ci>
+		      <m:ci>f</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>f</m:ci>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>f</m:mi>
+			      <m:mi>c</m:mi>
+			    </m:msub>
+			  </m:ci>			
+			</m:apply>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply></m:annotation-xml></m:semantics></m:math></p></td></tr>
+</table>
+
+
+  </body>
+</html>
+

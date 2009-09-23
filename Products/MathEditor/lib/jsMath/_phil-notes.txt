@@ -1,0 +1,3 @@
+I moved the uncompressed jsMath.js to the main folder so extensions would work.
+Also, Firefox requires a special try block to handle &nbsp;
+(Compare the source code or look for "PHIL")
