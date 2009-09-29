@@ -17,5 +17,3 @@ registerDirectory(config.SKINS_DIR, config.GLOBALS)
 def initialize(context):
     pass
 
-from Extensions import Install  # check syntax on startup
-del Install
