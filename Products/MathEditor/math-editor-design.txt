@@ -1,0 +1,131 @@
+math-*.js
+
+The editor is built from modular objects (later files depend on earlier ones):
+lib/tdop			 : A Parser for text input. Converts things like "a*x^2" to an Abstract Syntax Tree.
+math-exceptions.js	 : Special cases should all be moved in here (so they are explicit).
+math-templates.js	 : All templates recognizable by the editor are here (customizable).
+math-categories.js	 : Toolbar categories are defined here (customizable).
+math-utils.js   	 : Static functions used throughout.
+math-infer.js		 : Type-inference and conversion between MathML (XML) and JS MathNodes.
+math-node.js		 : Loosely represents a MathML element. Has manipulation methods on it.
+math-model.js		 : Object that has listeners for MathNode changes.
+math-parser.js 		 : Converts an Abstract Syntax Tree into MathNodes.
+math-position.js	 : Maintains abstract notion of a cursor in the editor.
+math-render.js		 : Using XSLT, converts MathNodes to Content MathML and into Presentation MathML.
+math-input.js		 : Adds keyboard listeners, and moves the cursor around rendered math.
+math-editor.js		 : Combines the previous, adds a toolbar, and status bar.
+
+(TODO: The following is out-of-date)
+
+= Use Cases =
+
+The editor has two target audiences, Content-creators and Learners.
+Creaators typically know what they want to enter but don't want to learn another language.
+Typically the math content is an equation or formula which is either viewed as a figure (cnx:equation) or is sprinkled in the text.
+
+Students on the other hand need to be able to submit homework or solutions to quiz questions.
+They typically have very limited knowledge of mathematical concepts, and just need the tools to write up a solution.
+
+This editor attempts to address both issues by giving the creator access to everything available in Content MathML,
+ and addresses students by allowing ways to limit the tools that can be used.
+
+There are situations where content MathML cannot sufficiently describe a concept to the reader.
+For example, using ellipses when describing infinite series, or rows in a matrix.
+These are helpful for a human to illustrate a concept, but cannot be "solved" in any meaningful way.
+
+= Limitations =
+ * Firefox-only
+ * Content MathML only
+
+= Milestones =
+
+ 1. Create a P-MathML editor so elaborate variables can be created (but nothing else)
+
+= Tasks (TODO) =
+ * When parsing input, ensure the root node is math and belongs to the MathML Namespace.
+ * Support editing cn details (type, content (with sep) and xml. Also, &tau; is a cn NOT a ci.
+ * Support mml:declare rendering (XSLT) and template
+ * BUG: pasting a matrix on top of a number results in the number being added to the matrix without the other rows being extended. Plus maybe paste shouldn't try to auto-reinsert
+ * Add drag-and-drop for selections (when you hover over a node replace (don't re-render) the nearest content node with the selection (to give the user a preview of what it will look like if they drop it there). 
+ * Expandables should be textboxes too [+] (need special onFocus/onBlur, and maybe hide them depending on what's focused).
+ * Show last 3 things copied onto the clipboard (pasting/clicking freshens them in the list) (retain types to gray them)
+ * Show optional blocks
+ * Have a UI for entering/editing conditions.
+ * What should happen when we paste bad code into the source view?
+ * Can't infer types on limit.
+ * Losing focus on the search box calls refresh to regain focus. This could be done simpler.
+ * When serializing, reinsert &entitynames and numbers.
+ * Change the class for a selected expandable (Safari's CSS doesn't override the default grey plus sign)
+ * Add support for mml:semantics (initially remove the wrapped mml:semantics and discard the annotation)
+ * (filter clipboard by what type is selected. show all, but make some opaque)
+
+
+
+
+Discuss the overall architecture here.  List all of the moving parts here.
+
+List all of the design decision made like:
+
+* Why IE is not supported.[[BR]]
+* Why P-MathML editing is minimally supported.[[BR]]
+
+'''Use Cases:'''
+
+1. user enters quadratic equation & verifies result via Mathematica[[BR]]
+2. user enters Maxwell equations & verifies result via Mathematica[[BR]]
+3. etc.[[BR]]
+
+= Overall =
+
+The editor stores a Content MathML document, renders it as Presentation (with annotations via @id attributes. Pretty much each content node (except ones like `mml:int` has a (possibly invisible) input box associated with it.
+
+The input box allows for seamless tabbing in the editor.
+Each input box is linked to a presentation MathML block (so it can be hidden/replaced as needed)
+
+
+
+
+
+= Modules =
+The code for the editor is built up hierarchically.
+A list of what each module does and which events it listens to is listed below.
+
+== Utils ==
+Global utility gunctions every other module uses.
+These are functions that wrap XPath syntax up,  or define debugging methods.
+
+== Document ==
+A glorified `mml:math` node. It contains functions that create fresh id's for the Math nodes, look up nodes based on their id, store an id for the editor.
+
+
+== Editor ==
+Stores the actual Content MathML root node.
+Provides the bare functions to modify the Content MathML (there are special handlers that ensure for example `mml:matrix` elements have the correct number of columns.
+
+Contains the all-important registerTool and updateState functions.
+Keeps track of which Editor is active (only 1 can be at a time for things like keyboard shorcuts to work) 
+Also keeps track of which node is selected (if any).
+
+== Render ==
+Contains the XSLT file and code to render Content MathML to the screen.
+
+Also provides a mapping between Presentation ID's to content nodes (because mice click on presentation)
+
+== Toolbar ==
+Manages the toolbar buttons, when they are visible.
+This has many onclicks and makes heavy use of updateState to eable/disable buttons based on what is selected and whether the editor is active.
+
+
+
+== Input ==
+The bulk of interaction. This module houses code for onclicks (rendered by XSLT) onfocus/blur and text-selection dragging (mousedown/mouseup)
+
+This module uses the templates (so does the toolbar) to generate new nodes.
+
+It is also responsible for replacing nodes and re-rendering.
+
+
+= XML Formats =
+
+== Content+Editor to P-MathML XSLT ==
+This file is a modified version of the c2p XSLT on W3C's website. I have boxed elements in a mml:mrow, annotated the resulting MathML with id attributes (for reverse-lookup when clicking and editing), and added xhtml:input elements to make the editor work. These are the only modifications but they persist throughout the XSLT.

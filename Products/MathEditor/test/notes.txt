@@ -1,0 +1,5 @@
+jsmath.xhtml No longer works, but has a few MathML that does NOT render correctly.
+
+All functions with optional arguments:
+
+piecewise=max2=min2=root=forall=exists=log=complement=expectedvalue=pdf=pdf2=cdf=cdf2

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  <head>
+    <title>cnx.org's JavaScript MathML Editor</title>
+  </head>
+  <body>
+    <h2>A WYSIWYG JavaScript MathML Editor for Firefox <em>(in Beta)</em></h2>
+	
+	<h3>Simple examples</h3>
+	<ul>
+		<li>A <a href="test/blank.xhtml">blank editor</a>.</li>
+		<li>Example with <a href="test/examples.xhtml">existing math</a>.</li>
+		<li>A <a href="test/parser.xhtml">page</a> using just the Parser part of the editor (Works in Firefox, Safari, and IE)</li>
+	</ul>
+
+	<h3>Documentation</h3>
+	<ol>
+		<li><a href="/content/m26312/">The Basics</a></li>
+		<li><a href="/content/m24560/">Intermediate Examples</a></li>
+		<li><a href="/content/m24561/">Manual</a></li>
+	</ol>
+	
+	<h3>Overview</h3>
+	<ol>
+		<li>The editor works on a <code>mml:math</code> element and manipulates Content MathML.</li>
+	   	<li>There are templates for each Content MathML entity (<a href="http://www.w3.org/TR/MathML2/chapter4.html">http://www.w3.org/TR/MathML2</a>).</li>
+	    <li>Each template contains <code>mmled:block</code>'s that are insertion points for more data.</li>
+	    <li>Then, the Content MathML runs through an XSLT (modified from <a href="http://www.w3.org/Math/XSL/">http://www.w3.org/Math/XSL</a>) to create Presentation MathML with input boxes for the <code>mmled:block</code>'s.</li>
+	    <li>When an input box loses focus, the Content MathML is updated, and re-rendered.</li>
+	    <!-- li>Depending on the type of the new selection, the toolbar is filtered to show <strong>only</strong> the operations/constructors/constants that are valid in that context.</li -->
+	</ol>
+
+	<h3>Source</h3>
+	<p>The source code can be found at <a href="https://software.cnx.rice.edu/svn/MathEditor/">https://software.cnx.rice.edu/svn/MathEditor/</a>.</p>	
+
+	<h3>Derived Projects</h3>
+	<ul>
+		<li>The <a href="http://svn.plone.org/svn/collective/collective.matheditor/">collective.matheditor</a> adds a "Edit MathML" button to <a href="http://kupu.oscom.org">kupu</a>, a XHTML WYSIWYG editor.</li>
+	</ul> 
+	
+	<h3>Contact</h3>
+	<p>Created by <a href="mailto:feedback@cnx.org" onclick="this.href=['\u0040','il','ph','mailto:'].reverse().join('')+window.location.hostname+'?subject=MathML Editor Feedback';return true;">Philip Schatz</a></p>
+
+
+  </body>
+</html>

@@ -1,0 +1,2399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:pref="http://www.w3.org/2002/Math/preference"
+  pref:renderer="css">
+  <head>
+    <title>Math Editor Page</title>
+    <link rel="stylesheet" type="text/css" href="../skins/math-editor/math-editor/math-editor.css" />
+
+	<!-- Ext.js requirements -->
+    <link rel="stylesheet" type="text/css" href="../lib/extjs/resources/css/ext-all.css" />
+ 	<script type="text/javascript" src="../lib/extjs/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../lib/extjs/ext-all.js"></script>
+
+    <!-- Add the parser requirements -->
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/json2.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/tokens.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/parse.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-exceptions.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-templates.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-categories.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-utils.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-infer.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-node.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-model.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-parser.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-position.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-render.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-input.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-editor.js" />
+    <script type="text/javascript" src="./math-test.js" />
+    <script type="text/javascript">
+    //<![CDATA[
+        var editor; //A global editor. Used for text entry at the bottom of the page
+        function ldWrapped() {
+          //clear the debug output
+          try {
+            ld();
+          } catch(e) {
+            if (e && e.name && e.message) e = e.name+': '+e.message;
+            alert(e);
+            return;
+          }
+    }
+        
+    function ld() {
+          var c2pXslt = MathUtil.getXsl("xsl/c2p.xsl");
+          var makeEditor = function(id, options) {
+            var ed = document.getElementById(id);
+            if(ed)
+              return new MathEditor(ed, c2pXslt, options);
+          }; 
+          var contentMathText = document.getElementById("output");
+          var i=0;
+          while(i<50) {
+            ed=makeEditor("editor-"+i, null/*no options*/);
+            if(!ed) break;
+            
+            i++;
+          }
+    };
+    //]]>
+    </script>
+  </head>
+  <body onload="ldWrapped();">
+<h1>Equations with "outstanding" issues</h1>
+
+
+
+<h2>Some Expandables are not hidden (from test1.xhtml)</h2>
+
+<h2>m10152</h2>
+<table style='width:100%;'>
+<tr><td><textarea id='editor-0'>
+&lt;m:math display="block" xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:eq/&gt;
+
+	    &lt;m:ci&gt;
+	      &lt;m:msub&gt;
+		&lt;m:mi&gt;P&lt;/m:mi&gt;
+		&lt;m:mi&gt;e&lt;/m:mi&gt;
+	      &lt;/m:msub&gt;
+
+	    &lt;/m:ci&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:plus/&gt;
+	      &lt;m:apply&gt;
+		&lt;m:times/&gt;
+		&lt;m:cn type="rational"&gt;1&lt;m:sep/&gt;2&lt;/m:cn&gt;
+
+		&lt;m:apply&gt;
+		  &lt;m:int/&gt;
+		  &lt;m:bvar&gt;
+		    &lt;m:ci&gt;r&lt;/m:ci&gt;
+		  &lt;/m:bvar&gt;
+
+		  &lt;m:lowlimit&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:minus/&gt;
+		      &lt;m:infinity/&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:lowlimit&gt;
+
+		  &lt;m:uplimit&gt;
+		    &lt;m:cn&gt;0&lt;/m:cn&gt;
+		  &lt;/m:uplimit&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+
+		    &lt;m:apply&gt;
+		      &lt;m:divide/&gt;
+		      &lt;m:cn&gt;1&lt;/m:cn&gt;
+		      &lt;m:apply&gt;
+			&lt;m:root/&gt;
+
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+			  &lt;m:ci&gt;π&lt;/m:ci&gt;
+			  &lt;m:apply&gt;
+
+			    &lt;m:divide/&gt;
+			    &lt;m:ci&gt;
+			      &lt;m:msub&gt;
+				&lt;m:mi&gt;N&lt;/m:mi&gt;
+				&lt;m:mn&gt;0&lt;/m:mn&gt;
+
+			      &lt;/m:msub&gt;
+			    &lt;/m:ci&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:exp/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:minus/&gt;
+
+			&lt;m:apply&gt;
+			  &lt;m:divide/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:power/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:abs/&gt;
+
+			      &lt;m:apply&gt;
+				&lt;m:minus/&gt;
+				&lt;m:ci&gt;r&lt;/m:ci&gt;
+				&lt;m:apply&gt;
+				  &lt;m:root/&gt;
+
+				  &lt;m:ci&gt;
+				    &lt;m:msub&gt;
+				      &lt;m:mi&gt;E&lt;/m:mi&gt;
+				      &lt;m:mi&gt;s&lt;/m:mi&gt;
+				    &lt;/m:msub&gt;
+
+				  &lt;/m:ci&gt;
+				&lt;/m:apply&gt;
+			      &lt;/m:apply&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			  &lt;/m:apply&gt;
+			  &lt;m:ci&gt;
+			    &lt;m:msub&gt;
+			      &lt;m:mi&gt;N&lt;/m:mi&gt;
+			      &lt;m:mn&gt;0&lt;/m:mn&gt;
+
+			    &lt;/m:msub&gt;
+			  &lt;/m:ci&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	      &lt;m:apply&gt;
+		&lt;m:times/&gt;
+		&lt;m:cn type="rational"&gt;1&lt;m:sep/&gt;2&lt;/m:cn&gt;
+
+		&lt;m:apply&gt;
+		  &lt;m:int/&gt;
+		  &lt;m:bvar&gt;
+		    &lt;m:ci&gt;r&lt;/m:ci&gt;
+		  &lt;/m:bvar&gt;
+
+		  &lt;m:lowlimit&gt;
+		    &lt;m:cn&gt;0&lt;/m:cn&gt;
+		  &lt;/m:lowlimit&gt;
+		  &lt;m:uplimit&gt;
+		    &lt;m:infinity/&gt;
+
+		  &lt;/m:uplimit&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:divide/&gt;
+		      &lt;m:cn&gt;1&lt;/m:cn&gt;
+
+		      &lt;m:apply&gt;
+			&lt;m:root/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			  &lt;m:ci&gt;π&lt;/m:ci&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:divide/&gt;
+			    &lt;m:ci&gt;
+			      &lt;m:msub&gt;
+
+				&lt;m:mi&gt;N&lt;/m:mi&gt;
+				&lt;m:mn&gt;0&lt;/m:mn&gt;
+			      &lt;/m:msub&gt;
+			    &lt;/m:ci&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:exp/&gt;
+
+		      &lt;m:apply&gt;
+			&lt;m:minus/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:divide/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:power/&gt;
+
+			    &lt;m:apply&gt;
+			      &lt;m:abs/&gt;
+			      &lt;m:apply&gt;
+				&lt;m:plus/&gt;
+				&lt;m:ci&gt;r&lt;/m:ci&gt;
+
+				&lt;m:apply&gt;
+				  &lt;m:root/&gt;
+				  &lt;m:ci&gt;
+				    &lt;m:msub&gt;
+				      &lt;m:mi&gt;E&lt;/m:mi&gt;
+
+				      &lt;m:mi&gt;s&lt;/m:mi&gt;
+				    &lt;/m:msub&gt;
+				  &lt;/m:ci&gt;
+				&lt;/m:apply&gt;
+			      &lt;/m:apply&gt;
+
+			    &lt;/m:apply&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+			  &lt;/m:apply&gt;
+			  &lt;m:ci&gt;
+			    &lt;m:msub&gt;
+
+			      &lt;m:mi&gt;N&lt;/m:mi&gt;
+			      &lt;m:mn&gt;0&lt;/m:mn&gt;
+			    &lt;/m:msub&gt;
+			  &lt;/m:ci&gt;
+			&lt;/m:apply&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+
+	  &lt;/m:apply&gt;
+	&lt;/m:math&gt;</textarea></td><td><p>
+<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" display="block"><m:semantics><m:mrow>
+	  <mrow xmlns:mmled="http://cnx.rice.edu/mmled"><mrow><mrow>
+	      <m:msub>
+		<m:mi>P</m:mi>
+		<m:mi>e</m:mi>
+
+	      </m:msub>
+	    </mrow></mrow><m:mo>=</m:mo><mrow><mrow><mrow><mml:mn>-12</mml:mn><mo/><mrow><mrow><mrow><mrow><mml:mn>1</mml:mn><mo>/</mo><mml:mn>2</mml:mn></mrow></mrow><mo/><mrow><mrow><msubsup><mo>∫
+        </mo><mrow><mrow><mrow><mo>−</mo><mrow><mi>∞</mi></mrow></mrow></mrow></mrow><mrow><mrow><mml:mn>0</mml:mn></mrow></mrow></msubsup><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mml:msqrt><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><mrow>π</mrow></mrow><mo/><mrow><mml:mfrac bevelled="false"><mrow><mrow>
+			      <m:msub>
+
+				<m:mi>N</m:mi>
+				<m:mn>0</m:mn>
+			      </m:msub>
+			    </mrow></mrow><mml:mpadded height="+.5em"><mrow><mml:mn>2</mml:mn></mrow></mml:mpadded></mml:mfrac></mrow></mrow></mrow></mml:msqrt></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mi>e</mi><mrow><mrow><mrow><mo>−</mo><mrow><mml:mfrac bevelled="false"><mrow><msup><mrow><mrow><mo>|</mo><mrow><mrow><mrow><mrow>r</mrow></mrow><mo>−</mo><mrow><mml:msqrt><mrow><mrow>
+				    <m:msub>
+
+				      <m:mi>E</m:mi>
+				      <m:mi>s</m:mi>
+				    </m:msub>
+				  </mrow></mrow></mml:msqrt></mrow></mrow></mrow><mo>|</mo></mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow><mml:mpadded height="+.5em"><mrow><mrow>
+			    <m:msub>
+			      <m:mi>N</m:mi>
+
+			      <m:mn>0</m:mn>
+			    </m:msub>
+			  </mrow></mrow></mml:mpadded></mml:mfrac></mrow></mrow></mrow></mrow></msup></mrow></mrow></mrow><mo>d</mo><mi>
+		    <mrow><mrow>r</mrow></mrow>
+		  </mi></mrow></mrow></mrow></mrow></mrow><mo>−</mo><mrow><mml:mn>-12</mml:mn><mo/><mrow><mrow><mrow><mrow><mml:mn>1</mml:mn><mo>/</mo><mml:mn>2</mml:mn></mrow></mrow><mo/><mrow><mrow><msubsup><mo>∫
+        </mo><mrow><mrow><mml:mn>0</mml:mn></mrow></mrow><mrow><mrow><mi>∞</mi></mrow></mrow></msubsup><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mml:msqrt><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><mrow>π</mrow></mrow><mo/><mrow><mml:mfrac bevelled="false"><mrow><mrow>
+
+			      <m:msub>
+				<m:mi>N</m:mi>
+				<m:mn>0</m:mn>
+			      </m:msub>
+			    </mrow></mrow><mml:mpadded height="+.5em"><mrow><mml:mn>2</mml:mn></mrow></mml:mpadded></mml:mfrac></mrow></mrow></mrow></mml:msqrt></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mi>e</mi><mrow><mrow><mrow><mo>−</mo><mrow><mml:mfrac bevelled="false"><mrow><msup><mrow><mrow><mo>|</mo><mrow><mrow><mrow><mrow>r</mrow></mrow><mo>−</mo><mrow><mml:mn>NaN</mml:mn><mo/><mrow><mml:msqrt><mrow><mrow>
+
+				    <m:msub>
+				      <m:mi>E</m:mi>
+				      <m:mi>s</m:mi>
+				    </m:msub>
+				  </mrow></mrow></mml:msqrt></mrow></mrow></mrow></mrow><mo>|</mo></mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow><mml:mpadded height="+.5em"><mrow><mrow>
+			    <m:msub>
+			      <m:mi>N</m:mi>
+
+			      <m:mn>0</m:mn>
+			    </m:msub>
+			  </mrow></mrow></mml:mpadded></mml:mfrac></mrow></mrow></mrow></mrow></msup></mrow></mrow></mrow><mo>d</mo><mi>
+		    <mrow><mrow>r</mrow></mrow>
+		  </mi></mrow></mrow></mrow></mrow></mrow></mrow></mrow></mrow>
+	</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply>
+	    <m:eq/>
+
+	    <m:ci>
+	      <m:msub>
+		<m:mi>P</m:mi>
+		<m:mi>e</m:mi>
+	      </m:msub>
+	    </m:ci>
+	    <m:apply>
+	      <m:plus/>
+
+	      <m:apply>
+		<m:times/>
+		<m:cn type="rational">1<m:sep/>2</m:cn>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>r</m:ci>
+
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:cn>0</m:cn>
+
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:apply>
+			<m:root/>
+
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:ci>π</m:ci>
+			  <m:apply>
+			    <m:divide/>
+			    <m:ci>
+			      <m:msub>
+
+				<m:mi>N</m:mi>
+				<m:mn>0</m:mn>
+			      </m:msub>
+			    </m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:divide/>
+			  <m:apply>
+
+			    <m:power/>
+			    <m:apply>
+			      <m:abs/>
+			      <m:apply>
+				<m:minus/>
+				<m:ci>r</m:ci>
+				<m:apply>
+				  <m:root/>
+
+				  <m:ci>
+				    <m:msub>
+				      <m:mi>E</m:mi>
+				      <m:mi>s</m:mi>
+				    </m:msub>
+				  </m:ci>
+				</m:apply>
+			      </m:apply>
+
+			    </m:apply>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>N</m:mi>
+			      <m:mn>0</m:mn>
+
+			    </m:msub>
+			  </m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+
+		<m:times/>
+		<m:cn type="rational">1<m:sep/>2</m:cn>
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci>r</m:ci>
+		  </m:bvar>
+
+		  <m:lowlimit>
+		    <m:cn>0</m:cn>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:apply>
+			<m:root/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+
+			  <m:ci>π</m:ci>
+			  <m:apply>
+			    <m:divide/>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>N</m:mi>
+				<m:mn>0</m:mn>
+
+			      </m:msub>
+			    </m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:divide/>
+			  <m:apply>
+			    <m:power/>
+			    <m:apply>
+			      <m:abs/>
+
+			      <m:apply>
+				<m:plus/>
+				<m:ci>r</m:ci>
+				<m:apply>
+				  <m:root/>
+				  <m:ci>
+				    <m:msub>
+				      <m:mi>E</m:mi>
+
+				      <m:mi>s</m:mi>
+				    </m:msub>
+				  </m:ci>
+				</m:apply>
+			      </m:apply>
+			    </m:apply>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>N</m:mi>
+			      <m:mn>0</m:mn>
+			    </m:msub>
+			  </m:ci>
+			</m:apply>
+		      </m:apply>
+
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply></m:annotation-xml></m:semantics></m:math></p></td></tr>
+<tr><td><textarea id='editor-1'>
+&lt;m:math display="block" xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	  &lt;m:apply&gt;
+
+	    &lt;m:eq/&gt;
+	    &lt;m:ci&gt;
+	      &lt;m:msub&gt;
+		&lt;m:mi&gt;P&lt;/m:mi&gt;
+		&lt;m:mi&gt;e&lt;/m:mi&gt;
+
+	      &lt;/m:msub&gt;
+	    &lt;/m:ci&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:plus/&gt;
+	      &lt;m:apply&gt;
+		&lt;m:times/&gt;
+
+		&lt;m:cn type="rational"&gt;1&lt;m:sep/&gt;2&lt;/m:cn&gt;
+		&lt;m:apply&gt;
+		  &lt;m:int/&gt;
+		  &lt;m:bvar&gt;
+		    &lt;m:ci&gt;&lt;m:msup&gt;
+
+			&lt;m:mi&gt;r&lt;/m:mi&gt;
+			&lt;m:mo&gt;′&lt;/m:mo&gt;
+		      &lt;/m:msup&gt;&lt;/m:ci&gt;
+		  &lt;/m:bvar&gt;
+
+		  &lt;m:lowlimit&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:minus/&gt;
+		      &lt;m:infinity/&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:lowlimit&gt;
+
+		  &lt;m:uplimit&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:minus/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:root/&gt;
+			&lt;m:apply&gt;
+
+			  &lt;m:divide/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:times/&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;m:ci&gt;
+
+			      &lt;m:msub&gt;
+				&lt;m:mi&gt;E&lt;/m:mi&gt;
+				&lt;m:mi&gt;s&lt;/m:mi&gt;
+			      &lt;/m:msub&gt;
+			    &lt;/m:ci&gt;
+
+			  &lt;/m:apply&gt;
+			  &lt;m:ci&gt;
+			    &lt;m:msub&gt;
+			      &lt;m:mi&gt;N&lt;/m:mi&gt;
+			      &lt;m:mn&gt;0&lt;/m:mn&gt;
+
+			    &lt;/m:msub&gt;
+			  &lt;/m:ci&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:uplimit&gt;
+
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:divide/&gt;
+		      &lt;m:cn&gt;1&lt;/m:cn&gt;
+
+		      &lt;m:apply&gt;
+			&lt;m:root/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			  &lt;m:ci&gt;π&lt;/m:ci&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+
+		      &lt;m:exp/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:divide/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:minus/&gt;
+			  &lt;m:apply&gt;
+
+			    &lt;m:power/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:abs/&gt;
+			      &lt;m:ci&gt;&lt;m:msup&gt;
+				  &lt;m:mi&gt;r&lt;/m:mi&gt;
+
+				  &lt;m:mo&gt;′&lt;/m:mo&gt;
+				&lt;/m:msup&gt;&lt;/m:ci&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+			&lt;m:cn&gt;2&lt;/m:cn&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;   
+	      &lt;/m:apply&gt;
+	      &lt;m:apply&gt;
+		&lt;m:times/&gt;
+		&lt;m:cn type="rational"&gt;1&lt;m:sep/&gt;2&lt;/m:cn&gt;
+
+		&lt;m:apply&gt;
+		  &lt;m:int/&gt;
+		  &lt;m:bvar&gt;
+		    &lt;m:ci&gt;&lt;m:msup&gt;
+			&lt;m:mi&gt;r&lt;/m:mi&gt;
+
+			&lt;m:mo&gt;″&lt;/m:mo&gt;
+		      &lt;/m:msup&gt;&lt;/m:ci&gt;
+		  &lt;/m:bvar&gt;
+		  &lt;m:lowlimit&gt;
+		    &lt;m:apply&gt;
+
+		      &lt;m:root/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:divide/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			  &lt;m:ci&gt;
+			    &lt;m:msub&gt;
+			      &lt;m:mi&gt;E&lt;/m:mi&gt;
+			      &lt;m:mi&gt;s&lt;/m:mi&gt;
+			    &lt;/m:msub&gt;
+
+			  &lt;/m:ci&gt;
+			&lt;/m:apply&gt;
+			&lt;m:ci&gt;
+			  &lt;m:msub&gt;
+			    &lt;m:mi&gt;N&lt;/m:mi&gt;
+
+			    &lt;m:mn&gt;0&lt;/m:mn&gt;
+			  &lt;/m:msub&gt;
+			&lt;/m:ci&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+
+		  &lt;/m:lowlimit&gt;
+		  &lt;m:uplimit&gt;
+		    &lt;m:infinity/&gt;
+		  &lt;/m:uplimit&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+
+		    &lt;m:apply&gt;
+		      &lt;m:divide/&gt;
+		      &lt;m:cn&gt;1&lt;/m:cn&gt;
+		      &lt;m:apply&gt;
+			&lt;m:root/&gt;
+
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+			  &lt;m:ci&gt;π&lt;/m:ci&gt;
+			&lt;/m:apply&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:exp/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:divide/&gt;
+
+			&lt;m:apply&gt;
+			  &lt;m:minus/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:power/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:abs/&gt;
+
+			      &lt;m:ci&gt;&lt;m:msup&gt;
+				  &lt;m:mi&gt;r&lt;/m:mi&gt;
+				  &lt;m:mo&gt;″&lt;/m:mo&gt;
+				&lt;/m:msup&gt;&lt;/m:ci&gt;
+
+			    &lt;/m:apply&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+			&lt;m:cn&gt;2&lt;/m:cn&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+
+	  &lt;/m:apply&gt;
+	&lt;/m:math&gt;</textarea></td><td><p>
+<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" display="block"><m:semantics><m:mrow>
+	  <mrow xmlns:mmled="http://cnx.rice.edu/mmled"><mrow><mrow>
+	      <m:msub>
+		<m:mi>P</m:mi>
+		<m:mi>e</m:mi>
+
+	      </m:msub>
+	    </mrow></mrow><m:mo>=</m:mo><mrow><mrow><mrow><mml:mn>-12</mml:mn><mo/><mrow><mrow><mrow><mrow><mml:mn>1</mml:mn><mo>/</mo><mml:mn>2</mml:mn></mrow></mrow><mo/><mrow><mrow><msubsup><mo>∫
+        </mo><mrow><mrow><mrow><mo>−</mo><mrow><mi>∞</mi></mrow></mrow></mrow></mrow><mrow><mrow><mrow><mo>−</mo><mrow><mml:msqrt><mrow><mml:mfrac bevelled="false"><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><mrow>
+			      <m:msub>
+				<m:mi>E</m:mi>
+
+				<m:mi>s</m:mi>
+			      </m:msub>
+			    </mrow></mrow></mrow></mrow><mml:mpadded height="+.5em"><mrow><mrow>
+			    <m:msub>
+			      <m:mi>N</m:mi>
+			      <m:mn>0</m:mn>
+			    </m:msub>
+
+			  </mrow></mrow></mml:mpadded></mml:mfrac></mrow></mml:msqrt></mrow></mrow></mrow></mrow></msubsup><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mml:msqrt><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><mrow>π</mrow></mrow></mrow></mrow></mml:msqrt></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mi>e</mi><mrow><mrow><mml:mfrac bevelled="false"><mrow><mrow><mo>−</mo><mrow><msup><mrow><mrow><mo>|</mo><mrow><mrow><m:msup>
+				  <m:mi>r</m:mi>
+				  <m:mo>′</m:mo>
+				</m:msup></mrow></mrow><mo>|</mo></mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mrow></mrow><mml:mpadded height="+.5em"><mrow><mml:mn>2</mml:mn></mrow></mml:mpadded></mml:mfrac></mrow></mrow></msup></mrow></mrow></mrow><mo>d</mo><mi>
+
+		    <mrow><mrow><m:msup>
+			<m:mi>r</m:mi>
+			<m:mo>′</m:mo>
+		      </m:msup></mrow></mrow>
+		  </mi></mrow></mrow></mrow></mrow></mrow><mo>−</mo><mrow><mml:mn>-12</mml:mn><mo/><mrow><mrow><mrow><mrow><mml:mn>1</mml:mn><mo>/</mo><mml:mn>2</mml:mn></mrow></mrow><mo/><mrow><mrow><msubsup><mo>∫
+        </mo><mrow><mrow><mml:msqrt><mrow><mml:mfrac bevelled="false"><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><mrow>
+
+			    <m:msub>
+			      <m:mi>E</m:mi>
+			      <m:mi>s</m:mi>
+			    </m:msub>
+			  </mrow></mrow></mrow></mrow><mml:mpadded height="+.5em"><mrow><mrow>
+			  <m:msub>
+			    <m:mi>N</m:mi>
+
+			    <m:mn>0</m:mn>
+			  </m:msub>
+			</mrow></mrow></mml:mpadded></mml:mfrac></mrow></mml:msqrt></mrow></mrow><mrow><mrow><mi>∞</mi></mrow></mrow></msubsup><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mml:msqrt><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><mrow>π</mrow></mrow></mrow></mrow></mml:msqrt></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mi>e</mi><mrow><mrow><mml:mfrac bevelled="false"><mrow><mrow><mo>−</mo><mrow><msup><mrow><mrow><mo>|</mo><mrow><mrow><m:msup>
+				  <m:mi>r</m:mi>
+
+				  <m:mo>″</m:mo>
+				</m:msup></mrow></mrow><mo>|</mo></mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mrow></mrow><mml:mpadded height="+.5em"><mrow><mml:mn>2</mml:mn></mrow></mml:mpadded></mml:mfrac></mrow></mrow></msup></mrow></mrow></mrow><mo>d</mo><mi>
+		    <mrow><mrow><m:msup>
+			<m:mi>r</m:mi>
+			<m:mo>″</m:mo>
+
+		      </m:msup></mrow></mrow>
+		  </mi></mrow></mrow></mrow></mrow></mrow></mrow></mrow></mrow>
+	</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply>
+	    <m:eq/>
+	    <m:ci>
+	      <m:msub>
+		<m:mi>P</m:mi>
+		<m:mi>e</m:mi>
+
+	      </m:msub>
+	    </m:ci>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:times/>
+		<m:cn type="rational">1<m:sep/>2</m:cn>
+		<m:apply>
+
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci><m:msup>
+			<m:mi>r</m:mi>
+			<m:mo>′</m:mo>
+		      </m:msup></m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+
+			<m:root/>
+			<m:apply>
+			  <m:divide/>
+			  <m:apply>
+			    <m:times/>
+			    <m:cn>2</m:cn>
+			    <m:ci>
+			      <m:msub>
+
+				<m:mi>E</m:mi>
+				<m:mi>s</m:mi>
+			      </m:msub>
+			    </m:ci>
+			  </m:apply>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>N</m:mi>
+
+			      <m:mn>0</m:mn>
+			    </m:msub>
+			  </m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:uplimit>
+		  <m:apply>
+
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:apply>
+			<m:root/>
+			<m:apply>
+			  <m:times/>
+
+			  <m:cn>2</m:cn>
+			  <m:ci>π</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+
+			<m:divide/>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:power/>
+			    <m:apply>
+			      <m:abs/>
+			      <m:ci><m:msup>
+				  <m:mi>r</m:mi>
+
+				  <m:mo>′</m:mo>
+				</m:msup></m:ci>
+			    </m:apply>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			</m:apply>
+			<m:cn>2</m:cn>
+
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>   
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:cn type="rational">1<m:sep/>2</m:cn>
+
+		<m:apply>
+		  <m:int/>
+		  <m:bvar>
+		    <m:ci><m:msup>
+			<m:mi>r</m:mi>
+			<m:mo>″</m:mo>
+		      </m:msup></m:ci>
+		  </m:bvar>
+
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:root/>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>E</m:mi>
+			      <m:mi>s</m:mi>
+			    </m:msub>
+			  </m:ci>
+			</m:apply>
+			<m:ci>
+
+			  <m:msub>
+			    <m:mi>N</m:mi>
+			    <m:mn>0</m:mn>
+			  </m:msub>
+			</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:lowlimit>
+
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+
+		      <m:apply>
+			<m:root/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:ci>π</m:ci>
+			</m:apply>
+		      </m:apply>
+
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:power/>
+
+			    <m:apply>
+			      <m:abs/>
+			      <m:ci><m:msup>
+				  <m:mi>r</m:mi>
+				  <m:mo>″</m:mo>
+				</m:msup></m:ci>
+			    </m:apply>
+			    <m:cn>2</m:cn>
+
+			  </m:apply>
+			</m:apply>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+
+	    </m:apply>
+	  </m:apply></m:annotation-xml></m:semantics></m:math></p></td></tr>
+</table>
+
+
+<h2>The sum in the second equation doesn't infer types correctly</h2>
+<h2>m11267</h2>
+<table style='width:100%;'>
+<tr><td><textarea id='editor-2'>
+&lt;m:math xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	    &lt;m:apply&gt;
+
+	      &lt;m:eq/&gt;
+	      &lt;m:apply&gt;
+		&lt;m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf"&gt;p&lt;/m:csymbol&gt;
+		&lt;m:condition&gt;
+		  &lt;m:ci type="vector"&gt;r&lt;/m:ci&gt;
+
+		&lt;/m:condition&gt;
+		&lt;m:ci&gt;θ&lt;/m:ci&gt;
+	      &lt;/m:apply&gt;
+	      
+	      &lt;m:apply&gt;
+		&lt;m:divide/&gt;
+
+		&lt;m:apply&gt;
+		  &lt;m:times/&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:divide/&gt;
+		    &lt;m:cn&gt;1&lt;/m:cn&gt;
+
+		    &lt;m:apply&gt;
+		      &lt;m:root/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:times/&gt;
+			&lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			&lt;m:pi/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:power/&gt;
+			  &lt;m:ci&gt;
+			    &lt;m:msub&gt;
+			      &lt;m:mi&gt;σ&lt;/m:mi&gt;
+
+			      &lt;m:mi&gt;θ&lt;/m:mi&gt;
+			    &lt;/m:msub&gt;
+			  &lt;/m:ci&gt;
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+			&lt;/m:apply&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:exp/&gt;
+		    &lt;m:apply&gt;
+
+		      &lt;m:minus/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:times/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:divide/&gt;
+			  &lt;m:cn&gt;1&lt;/m:cn&gt;
+
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+			&lt;/m:apply&gt;
+			&lt;m:apply&gt;
+			  &lt;m:power/&gt;
+			  &lt;m:apply&gt;
+
+			    &lt;m:divide/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:minus/&gt;
+			      &lt;m:ci&gt;θ&lt;/m:ci&gt;
+			      &lt;m:ci&gt;
+
+				&lt;m:msub&gt;
+				  &lt;m:mi&gt;m&lt;/m:mi&gt;
+				  &lt;m:mi&gt;θ&lt;/m:mi&gt;
+				&lt;/m:msub&gt;
+			      &lt;/m:ci&gt;
+
+			    &lt;/m:apply&gt;
+			    &lt;m:ci&gt;
+			      &lt;m:msub&gt;
+				&lt;m:mi&gt;σ&lt;/m:mi&gt;
+				&lt;m:mi&gt;θ&lt;/m:mi&gt;
+
+			      &lt;/m:msub&gt;
+			    &lt;/m:ci&gt;
+			  &lt;/m:apply&gt;
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+			&lt;/m:apply&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:product/&gt;
+		    &lt;m:bvar&gt;&lt;m:ci&gt;l&lt;/m:ci&gt;&lt;/m:bvar&gt;
+
+		    &lt;m:lowlimit&gt;&lt;m:cn&gt;0&lt;/m:cn&gt;&lt;/m:lowlimit&gt;
+		    &lt;m:uplimit&gt;
+		      &lt;m:apply&gt;
+			&lt;m:minus/&gt;
+			&lt;m:ci&gt;L&lt;/m:ci&gt;
+
+			&lt;m:cn&gt;1&lt;/m:cn&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:uplimit&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:times/&gt;
+
+		      &lt;m:apply&gt;
+			&lt;m:divide/&gt;
+			&lt;m:cn&gt;1&lt;/m:cn&gt;
+			&lt;m:apply&gt;
+			  &lt;m:root/&gt;
+
+			  &lt;m:apply&gt;
+			    &lt;m:times/&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;m:pi/&gt;
+			    &lt;m:apply&gt;
+
+			      &lt;m:power/&gt;
+			      &lt;m:ci&gt;
+				&lt;m:msub&gt;
+				  &lt;m:mi&gt;σ&lt;/m:mi&gt;
+				  &lt;m:mi&gt;n&lt;/m:mi&gt;
+
+				&lt;/m:msub&gt;
+			      &lt;/m:ci&gt;
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;/m:apply&gt;
+			  &lt;/m:apply&gt;
+
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		      &lt;m:apply&gt;
+			&lt;m:exp/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:minus/&gt;
+
+			  &lt;m:apply&gt;
+			    &lt;m:times/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:divide/&gt;
+			      &lt;m:cn&gt;1&lt;/m:cn&gt;
+
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:power/&gt;
+			      &lt;m:apply&gt;
+
+				&lt;m:divide/&gt;
+				&lt;m:apply&gt;
+				  &lt;m:minus/&gt;
+				  &lt;m:apply&gt;
+				    &lt;m:ci type="fn"&gt;r&lt;/m:ci&gt;
+
+				    &lt;m:ci&gt;l&lt;/m:ci&gt;
+				  &lt;/m:apply&gt;
+				  &lt;m:ci&gt;θ&lt;/m:ci&gt;
+				&lt;/m:apply&gt;
+				&lt;m:ci&gt;
+
+				  &lt;m:msub&gt;
+				    &lt;m:mi&gt;σ&lt;/m:mi&gt;
+				    &lt;m:mi&gt;n&lt;/m:mi&gt;
+				  &lt;/m:msub&gt;
+				&lt;/m:ci&gt;
+
+			      &lt;/m:apply&gt;
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;/m:apply&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		  
+		&lt;/m:apply&gt;
+		&lt;m:apply&gt;
+		  &lt;m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf"&gt;p&lt;/m:csymbol&gt;
+
+		  &lt;m:ci type="vector"&gt;r&lt;/m:ci&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:math&gt;</textarea></td><td><p>
+
+<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" display="block"><m:semantics><m:mrow>
+	    <mrow xmlns:mmled="http://cnx.rice.edu/mmled"><mrow><m:mrow><m:mrow><m:mrow><mrow>p</mrow></m:mrow></m:mrow><m:mfenced><m:mrow><m:mfenced open=" " close=" "><mrow><mrow>θ</mrow></mrow></m:mfenced><m:mrow><m:mspace width=".1em"/><m:mo>|</m:mo><m:mspace width=".1em"/><mrow>
+		  <mrow><m:mover><m:mi>r</m:mi><m:mo>⇀</m:mo></m:mover></mrow>
+		</mrow></m:mrow></m:mrow></m:mfenced></m:mrow></mrow><m:mo>=</m:mo><mrow><mml:mfrac bevelled="false"><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mml:msqrt><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><mi>π</mi></mrow><mo/><mrow><msup><mrow><mrow>
+			    <m:msub>
+
+			      <m:mi>σ</m:mi>
+			      <m:mi>θ</m:mi>
+			    </m:msub>
+			  </mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mrow></mrow></mml:msqrt></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mi>e</mi><mrow><mrow><mrow><mo>−</mo><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mml:mn>2</mml:mn></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mrow><mml:mfrac bevelled="false"><mrow><mrow><mrow><mrow>θ</mrow></mrow><mo>−</mo><mrow><mrow>
+
+				<m:msub>
+				  <m:mi>m</m:mi>
+				  <m:mi>θ</m:mi>
+				</m:msub>
+			      </mrow></mrow></mrow></mrow><mml:mpadded height="+.5em"><mrow><mrow>
+			      <m:msub>
+				<m:mi>σ</m:mi>
+
+				<m:mi>θ</m:mi>
+			      </m:msub>
+			    </mrow></mrow></mml:mpadded></mml:mfrac></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mrow></mrow></mrow></mrow></mrow></msup></mrow><mo/><mrow><mrow><msubsup><mo>∏</mo><mrow><mrow><mml:mn>0</mml:mn></mrow></mrow><mrow><mrow><mrow><mrow><mrow>L</mrow></mrow><mo>−</mo><mrow><mml:mn>1</mml:mn></mrow></mrow></mrow></mrow></msubsup><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mml:msqrt><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><mi>π</mi></mrow><mo/><mrow><msup><mrow><mrow>
+				<m:msub>
+
+				  <m:mi>σ</m:mi>
+				  <m:mi>n</m:mi>
+				</m:msub>
+			      </mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mrow></mrow></mml:msqrt></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mi>e</mi><mrow><mrow><mrow><mo>−</mo><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mml:mn>2</mml:mn></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mrow><mml:mfrac bevelled="false"><mrow><mrow><mrow><mrow><mrow><mrow>r</mrow></mrow><mo/><mfenced open="(" close=")" separators=","><mrow><mrow>l</mrow></mrow></mfenced></mrow></mrow><mo>−</mo><mrow><mrow>θ</mrow></mrow></mrow></mrow><mml:mpadded height="+.5em"><mrow><mrow>
+
+				  <m:msub>
+				    <m:mi>σ</m:mi>
+				    <m:mi>n</m:mi>
+				  </m:msub>
+				</mrow></mrow></mml:mpadded></mml:mfrac></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mrow></mrow></mrow></mrow></mrow></msup></mrow></mrow></mrow></mrow></mrow></mrow></mrow><mml:mpadded height="+.5em"><mrow><m:mrow><m:mrow><m:mrow><mrow>p</mrow></m:mrow></m:mrow><m:mfenced><m:mrow><m:mfenced open=" " close=" "><mrow><m:mover><m:mi>r</m:mi><m:mo>⇀</m:mo></m:mover></mrow></m:mfenced></m:mrow></m:mfenced></m:mrow></mrow></mml:mpadded></mml:mfrac></mrow></mrow>
+	  </m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply>
+
+	      <m:eq/>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+		<m:condition>
+		  <m:ci type="vector">r</m:ci>
+		</m:condition>
+		<m:ci>θ</m:ci>
+
+	      </m:apply>
+	      
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+
+		    <m:apply>
+		      <m:root/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+			<m:apply>
+			  <m:power/>
+
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>σ</m:mi>
+			      <m:mi>θ</m:mi>
+			    </m:msub>
+			  </m:ci>
+			  <m:cn>2</m:cn>
+
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+
+			<m:times/>
+			<m:apply>
+			  <m:divide/>
+			  <m:cn>1</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:power/>
+
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>θ</m:ci>
+			      <m:ci>
+				<m:msub>
+				  <m:mi>m</m:mi>
+
+				  <m:mi>θ</m:mi>
+				</m:msub>
+			      </m:ci>
+			    </m:apply>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>σ</m:mi>
+				<m:mi>θ</m:mi>
+
+			      </m:msub>
+			    </m:ci>
+			  </m:apply>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+
+		  <m:apply>
+		    <m:product/>
+		    <m:bvar><m:ci>l</m:ci></m:bvar>
+		    <m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+		    <m:uplimit>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>L</m:ci>
+
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+
+			<m:apply>
+			  <m:root/>
+			  <m:apply>
+			    <m:times/>
+			    <m:cn>2</m:cn>
+			    <m:pi/>
+			    <m:apply>
+			      <m:power/>
+
+			      <m:ci>
+				<m:msub>
+				  <m:mi>σ</m:mi>
+				  <m:mi>n</m:mi>
+				</m:msub>
+			      </m:ci>
+			      <m:cn>2</m:cn>
+
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:exp/>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+
+			    <m:times/>
+			    <m:apply>
+			      <m:divide/>
+			      <m:cn>1</m:cn>
+			      <m:cn>2</m:cn>
+			    </m:apply>
+			    <m:apply>
+			      <m:power/>
+
+			      <m:apply>
+				<m:divide/>
+				<m:apply>
+				  <m:minus/>
+				  <m:apply>
+				    <m:ci type="fn">r</m:ci>
+				    <m:ci>l</m:ci>
+				  </m:apply>
+
+				  <m:ci>θ</m:ci>
+				</m:apply>
+				<m:ci>
+				  <m:msub>
+				    <m:mi>σ</m:mi>
+				    <m:mi>n</m:mi>
+				  </m:msub>
+
+				</m:ci>
+			      </m:apply>
+			      <m:cn>2</m:cn>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+
+		  </m:apply>
+		  
+		</m:apply>
+		<m:apply>
+		  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+		  <m:ci type="vector">r</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply></m:annotation-xml></m:semantics></m:math></p></td></tr>
+
+<tr><td><textarea id='editor-3'>
+&lt;m:math xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:ci&gt;&lt;m:mo&gt;∝&lt;/m:mo&gt;&lt;/m:ci&gt;
+	      &lt;m:apply&gt;
+		&lt;m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf"&gt;p&lt;/m:csymbol&gt;
+
+		&lt;m:condition&gt;
+		  &lt;m:ci type="vector"&gt;r&lt;/m:ci&gt;
+		&lt;/m:condition&gt;
+		&lt;m:ci&gt;θ&lt;/m:ci&gt;
+	      &lt;/m:apply&gt;
+
+	      &lt;m:apply&gt;
+		&lt;m:exp/&gt;
+		&lt;m:apply&gt;
+		  &lt;m:minus/&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+
+		    &lt;m:apply&gt;
+		      &lt;m:divide/&gt;
+		      &lt;m:cn&gt;1&lt;/m:cn&gt;
+		      &lt;m:apply&gt;
+			&lt;m:times/&gt;
+
+			&lt;m:cn&gt;2&lt;/m:cn&gt;
+			&lt;m:apply&gt;
+			  &lt;m:power/&gt;
+			  &lt;m:ci&gt;σ&lt;/m:ci&gt;
+			  &lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:power/&gt;
+		      &lt;m:apply&gt;
+
+			&lt;m:minus/&gt;
+			&lt;m:ci&gt;θ&lt;/m:ci&gt;
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:apply&gt;
+
+			    &lt;m:power/&gt;
+			    &lt;m:ci&gt;σ&lt;/m:ci&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+			  &lt;/m:apply&gt;
+			  &lt;m:apply&gt;
+
+			    &lt;m:plus/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:divide/&gt;
+			      &lt;m:ci&gt;
+				&lt;m:msub&gt;
+				  &lt;m:mi&gt;m&lt;/m:mi&gt;
+
+				  &lt;m:mi&gt;θ&lt;/m:mi&gt;
+				&lt;/m:msub&gt;
+			      &lt;/m:ci&gt;
+			      &lt;m:apply&gt;
+				&lt;m:power/&gt;
+
+				&lt;m:ci&gt;
+				  &lt;m:msub&gt;
+				    &lt;m:mi&gt;σ&lt;/m:mi&gt;
+				    &lt;m:mi&gt;θ&lt;/m:mi&gt;
+				  &lt;/m:msub&gt;
+
+				&lt;/m:ci&gt;
+				&lt;m:cn&gt;2&lt;/m:cn&gt;
+			      &lt;/m:apply&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:apply&gt;
+
+			      &lt;m:divide/&gt;
+			      &lt;m:apply&gt;
+				&lt;m:sum/&gt;
+				&lt;m:apply&gt;
+				  &lt;m:ci type="fn"&gt;r&lt;/m:ci&gt;
+
+				  &lt;m:ci&gt;l&lt;/m:ci&gt;
+				&lt;/m:apply&gt;
+			      &lt;/m:apply&gt;
+			      &lt;m:apply&gt;
+				&lt;m:power/&gt;
+
+				&lt;m:ci&gt;
+				  &lt;m:msub&gt;
+				    &lt;m:mi&gt;σ&lt;/m:mi&gt;
+				    &lt;m:mi&gt;n&lt;/m:mi&gt;
+				  &lt;/m:msub&gt;
+
+				&lt;/m:ci&gt;
+				&lt;m:cn&gt;2&lt;/m:cn&gt;
+			      &lt;/m:apply&gt;
+			    &lt;/m:apply&gt;
+			  &lt;/m:apply&gt;
+
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		      &lt;m:cn&gt;2&lt;/m:cn&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:math&gt;</textarea></td><td><p>
+<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" display="block"><m:semantics><m:mrow>
+	    <mrow xmlns:mmled="http://cnx.rice.edu/mmled"><mrow><mrow><mrow><m:mo>∝</m:mo></mrow></mrow><mo/><mfenced open="(" close=")" separators=","><mrow><m:mrow><m:mrow><m:mrow><mrow>p</mrow></m:mrow></m:mrow><m:mfenced><m:mrow><m:mfenced open=" " close=" "><mrow><mrow>θ</mrow></mrow></m:mfenced><m:mrow><m:mspace width=".1em"/><m:mo>|</m:mo><m:mspace width=".1em"/><mrow>
+
+		  <mrow><m:mover><m:mi>r</m:mi><m:mo>⇀</m:mo></m:mover></mrow>
+		</mrow></m:mrow></m:mrow></m:mfenced></m:mrow></mrow><mrow><msup><mi>e</mi><mrow><mrow><mrow><mo>−</mo><mrow><mrow><mrow><mml:mfrac bevelled="false"><mrow><mml:mn>1</mml:mn></mrow><mml:mpadded height="+.5em"><mrow><mrow><mrow><mml:mn>2</mml:mn></mrow><mo/><mrow><msup><mrow><mrow>σ</mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mrow></mrow></mml:mpadded></mml:mfrac></mrow><mo/><mrow><msup><mrow><mrow><mrow><mrow>θ</mrow></mrow><mo>−</mo><mrow><mrow><mrow><msup><mrow><mrow>σ</mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow><mo/><mrow><mrow><mrow><mml:mn>NaN</mml:mn><mo/><mrow><mml:mfrac bevelled="false"><mrow><mrow>
+
+				<m:msub>
+				  <m:mi>m</m:mi>
+				  <m:mi>θ</m:mi>
+				</m:msub>
+			      </mrow></mrow><mml:mpadded height="+.5em"><mrow><msup><mrow><mrow>
+				  <m:msub>
+				    <m:mi>σ</m:mi>
+
+				    <m:mi>θ</m:mi>
+				  </m:msub>
+				</mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mml:mpadded></mml:mfrac></mrow></mrow><mo>−</mo><mrow><mml:mn>NaN</mml:mn><mo/><mrow><mml:mfrac bevelled="false"><mrow><mrow><msubsup><mo>∑</mo><mrow/><mrow/></msubsup><mrow><mrow><mrow><mrow>r</mrow></mrow><mo/><mfenced open="(" close=")" separators=","><mrow><mrow>l</mrow></mrow></mfenced></mrow></mrow></mrow></mrow><mml:mpadded height="+.5em"><mrow><msup><mrow><mrow>
+				  <m:msub>
+				    <m:mi>σ</m:mi>
+
+				    <m:mi>n</m:mi>
+				  </m:msub>
+				</mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mml:mpadded></mml:mfrac></mrow></mrow></mrow></mrow></mrow></mrow></mrow></mrow><mrow><mml:mn>2</mml:mn></mrow></msup></mrow></mrow></mrow></mrow></mrow></mrow></msup></mrow></mfenced></mrow></mrow>
+	  </m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply>
+	      <m:ci><m:mo>∝</m:mo></m:ci>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+
+		<m:condition>
+		  <m:ci type="vector">r</m:ci>
+		</m:condition>
+		<m:ci>θ</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:cn>1</m:cn>
+		      <m:apply>
+			<m:times/>
+
+			<m:cn>2</m:cn>
+			<m:apply>
+			  <m:power/>
+			  <m:ci>σ</m:ci>
+			  <m:cn>2</m:cn>
+			</m:apply>
+		      </m:apply>
+
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>θ</m:ci>
+			<m:apply>
+			  <m:times/>
+
+			  <m:apply>
+			    <m:power/>
+			    <m:ci>σ</m:ci>
+			    <m:cn>2</m:cn>
+			  </m:apply>
+			  <m:apply>
+			    <m:plus/>
+			    <m:apply>
+
+			      <m:divide/>
+			      <m:ci>
+				<m:msub>
+				  <m:mi>m</m:mi>
+				  <m:mi>θ</m:mi>
+				</m:msub>
+			      </m:ci>
+			      <m:apply>
+
+				<m:power/>
+				<m:ci>
+				  <m:msub>
+				    <m:mi>σ</m:mi>
+				    <m:mi>θ</m:mi>
+				  </m:msub>
+				</m:ci>
+				<m:cn>2</m:cn>
+
+			      </m:apply>
+			    </m:apply>
+			    <m:apply>
+			      <m:divide/>
+			      <m:apply>
+				<m:sum/>
+				<m:apply>
+				  <m:ci type="fn">r</m:ci>
+
+				  <m:ci>l</m:ci>
+				</m:apply>
+			      </m:apply>
+			      <m:apply>
+				<m:power/>
+				<m:ci>
+				  <m:msub>
+				    <m:mi>σ</m:mi>
+
+				    <m:mi>n</m:mi>
+				  </m:msub>
+				</m:ci>
+				<m:cn>2</m:cn>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply></m:annotation-xml></m:semantics></m:math></p></td></tr>
+</table>
+
+<h2>The entire equation doesn't load (type inference)</h2>
+
+<h2>m11268</h2>
+
+<table style='width:100%;'>
+<tr><td><textarea id='editor-4'>
+&lt;m:math xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:forall/&gt;
+	      &lt;m:bvar&gt;
+		&lt;m:ci&gt;θ&lt;/m:ci&gt;
+
+	      &lt;/m:bvar&gt;
+	      &lt;m:condition&gt;
+		&lt;m:apply&gt;	
+		  &lt;m:leq/&gt;
+		  &lt;m:ci&gt;
+		    &lt;m:msub&gt;
+
+		      &lt;m:mi&gt;θ&lt;/m:mi&gt;
+		      &lt;m:mn&gt;1&lt;/m:mn&gt;
+		    &lt;/m:msub&gt;
+		  &lt;/m:ci&gt;
+		  &lt;m:ci&gt;θ&lt;/m:ci&gt;
+
+		  &lt;m:ci&gt;
+		    &lt;m:msub&gt;
+		      &lt;m:mi&gt;θ&lt;/m:mi&gt;
+		      &lt;m:mn&gt;2&lt;/m:mn&gt;
+		    &lt;/m:msub&gt;
+
+		  &lt;/m:ci&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:condition&gt;
+	      &lt;m:apply&gt;
+		&lt;m:eq/&gt;
+		&lt;m:apply&gt;
+
+		  &lt;m:times/&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf"&gt;p&lt;/m:csymbol&gt;
+		    &lt;m:condition&gt;
+		      &lt;m:ci&gt;θ&lt;/m:ci&gt;
+
+		    &lt;/m:condition&gt;
+		    &lt;m:ci type="vector"&gt;r&lt;/m:ci&gt;
+		  &lt;/m:apply&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf"&gt;p&lt;/m:csymbol&gt;
+
+		    &lt;m:ci&gt;θ&lt;/m:ci&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+		&lt;m:apply&gt;
+		  &lt;m:times/&gt;
+
+		  &lt;m:apply&gt;
+		    &lt;m:divide/&gt;
+		    &lt;m:cn&gt;1&lt;/m:cn&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:minus/&gt;
+
+		      &lt;m:ci&gt;
+			&lt;m:msub&gt;
+			  &lt;m:mi&gt;θ&lt;/m:mi&gt;
+			  &lt;m:mn&gt;2&lt;/m:mn&gt;
+			&lt;/m:msub&gt;
+
+		      &lt;/m:ci&gt;
+		      &lt;m:ci&gt;
+			&lt;m:msub&gt;
+			  &lt;m:mi&gt;θ&lt;/m:mi&gt;
+			  &lt;m:mn&gt;1&lt;/m:mn&gt;
+
+			&lt;/m:msub&gt;
+		      &lt;/m:ci&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:product/&gt;
+
+		    &lt;m:bvar&gt;
+		      &lt;m:ci&gt;l&lt;/m:ci&gt;
+		    &lt;/m:bvar&gt;
+		    &lt;m:lowlimit&gt;
+		      &lt;m:cn&gt;0&lt;/m:cn&gt;
+
+		    &lt;/m:lowlimit&gt;
+		    &lt;m:uplimit&gt;
+		      &lt;m:apply&gt;
+			&lt;m:minus/&gt;
+			&lt;m:ci&gt;L&lt;/m:ci&gt;
+
+			&lt;m:cn&gt;1&lt;/m:cn&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:uplimit&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:times/&gt;
+
+		      &lt;m:apply&gt;
+			&lt;m:divide/&gt;
+			&lt;m:cn&gt;1&lt;/m:cn&gt;
+			&lt;m:apply&gt;
+			  &lt;m:root/&gt;
+
+			  &lt;m:apply&gt;
+			    &lt;m:times/&gt;
+			    &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;m:pi/&gt;
+			    &lt;m:apply&gt;
+
+			      &lt;m:power/&gt;
+			      &lt;m:ci&gt;
+				&lt;m:msub&gt;
+				  &lt;m:mi&gt;σ&lt;/m:mi&gt;
+				  &lt;m:mi&gt;n&lt;/m:mi&gt;
+
+				&lt;/m:msub&gt;
+			      &lt;/m:ci&gt;
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;/m:apply&gt;
+			  &lt;/m:apply&gt;
+
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		      &lt;m:apply&gt;
+			&lt;m:exp/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:minus/&gt;
+
+			  &lt;m:apply&gt;
+			    &lt;m:times/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:divide/&gt;
+			      &lt;m:cn&gt;1&lt;/m:cn&gt;
+
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:power/&gt;
+			      &lt;m:apply&gt;
+
+				&lt;m:divide/&gt;
+				&lt;m:apply&gt;
+				  &lt;m:minus/&gt;
+				  &lt;m:apply&gt;
+				    &lt;m:ci type="fn"&gt;r&lt;/m:ci&gt;
+
+				    &lt;m:ci&gt;l&lt;/m:ci&gt;
+				  &lt;/m:apply&gt;
+				  &lt;m:ci&gt;θ&lt;/m:ci&gt;
+				&lt;/m:apply&gt;
+				&lt;m:ci&gt;
+
+				  &lt;m:msub&gt;
+				    &lt;m:mi&gt;σ&lt;/m:mi&gt;
+				    &lt;m:mi&gt;n&lt;/m:mi&gt;
+				  &lt;/m:msub&gt;
+				&lt;/m:ci&gt;
+
+			      &lt;/m:apply&gt;
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			    &lt;/m:apply&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+
+	  &lt;/m:math&gt;</textarea></td><td><p>
+<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" display="block"><m:semantics><m:mrow>
+	    <mrow xmlns:mmled="http://cnx.rice.edu/mmled"/>
+	  </m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply>
+	      <m:forall/>
+	      <m:bvar>
+		<m:ci>θ</m:ci>
+	      </m:bvar>
+
+	      <m:condition>
+		<m:apply>	
+		  <m:leq/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>θ</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub>
+
+		  </m:ci>
+		  <m:ci>θ</m:ci>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>θ</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub>
+
+		  </m:ci>
+		</m:apply>
+	      </m:condition>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+
+		    <m:condition>
+		      <m:ci>θ</m:ci>
+		    </m:condition>
+		    <m:ci type="vector">r</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#pdf">p</m:csymbol>
+
+		    <m:ci>θ</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>θ</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub>
+		      </m:ci>
+
+		      <m:ci>
+			<m:msub>
+			  <m:mi>θ</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		    </m:apply>
+		  </m:apply>
+
+		  <m:apply>
+		    <m:product/>
+		    <m:bvar>
+		      <m:ci>l</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:cn>0</m:cn>
+		    </m:lowlimit>
+
+		    <m:uplimit>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>L</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:uplimit>
+		    <m:apply>
+
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:cn>1</m:cn>
+			<m:apply>
+			  <m:root/>
+			  <m:apply>
+			    <m:times/>
+
+			    <m:cn>2</m:cn>
+			    <m:pi/>
+			    <m:apply>
+			      <m:power/>
+			      <m:ci>
+				<m:msub>
+				  <m:mi>σ</m:mi>
+				  <m:mi>n</m:mi>
+
+				</m:msub>
+			      </m:ci>
+			      <m:cn>2</m:cn>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+
+			<m:exp/>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:times/>
+			    <m:apply>
+			      <m:divide/>
+			      <m:cn>1</m:cn>
+
+			      <m:cn>2</m:cn>
+			    </m:apply>
+			    <m:apply>
+			      <m:power/>
+			      <m:apply>
+				<m:divide/>
+				<m:apply>
+				  <m:minus/>
+
+				  <m:apply>
+				    <m:ci type="fn">r</m:ci>
+				    <m:ci>l</m:ci>
+				  </m:apply>
+				  <m:ci>θ</m:ci>
+				</m:apply>
+				<m:ci>
+
+				  <m:msub>
+				    <m:mi>σ</m:mi>
+				    <m:mi>n</m:mi>
+				  </m:msub>
+				</m:ci>
+			      </m:apply>
+			      <m:cn>2</m:cn>
+
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply></m:annotation-xml></m:semantics></m:math></p></td></tr>
+
+</table>
+
+
+<h2>Missing a bunch of math</h2>
+<h2>m11282</h2>
+
+<table style='width:100%;'>
+<tr><td><textarea id='editor-5'>
+&lt;m:math display="block" xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:forall/&gt;
+	    &lt;m:bvar&gt;&lt;m:ci&gt;&lt;m:msub&gt;
+		  &lt;m:mi&gt;k&lt;/m:mi&gt;
+
+		  &lt;m:mn&gt;1&lt;/m:mn&gt;
+		&lt;/m:msub&gt;&lt;/m:ci&gt;&lt;/m:bvar&gt;
+	    &lt;m:bvar&gt;&lt;m:ci&gt;&lt;m:msub&gt;
+		  &lt;m:mi&gt;k&lt;/m:mi&gt;
+
+		  &lt;m:mn&gt;2&lt;/m:mn&gt;
+		&lt;/m:msub&gt;&lt;/m:ci&gt;&lt;/m:bvar&gt;
+	    &lt;m:condition&gt;
+	      &lt;m:apply&gt;
+		&lt;m:neq/&gt;
+
+		&lt;m:ci&gt;&lt;m:msub&gt;
+		    &lt;m:mi&gt;k&lt;/m:mi&gt;
+		    &lt;m:mn&gt;1&lt;/m:mn&gt;
+		  &lt;/m:msub&gt;&lt;/m:ci&gt;
+
+		&lt;m:ci&gt;&lt;m:msub&gt;
+		    &lt;m:mi&gt;k&lt;/m:mi&gt;
+		    &lt;m:mn&gt;2&lt;/m:mn&gt;
+		  &lt;/m:msub&gt;&lt;/m:ci&gt;
+
+	      &lt;/m:apply&gt;
+	    &lt;/m:condition&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:eq/&gt;
+	      &lt;m:apply&gt;
+		&lt;m:selector/&gt;
+
+		&lt;m:ci&gt;&lt;m:msup&gt;
+		    &lt;m:mi&gt;K&lt;/m:mi&gt;
+		    &lt;m:mi&gt;R&lt;/m:mi&gt;
+		  &lt;/m:msup&gt;&lt;/m:ci&gt;
+
+		&lt;m:ci&gt;&lt;m:msub&gt;
+		    &lt;m:mi&gt;k&lt;/m:mi&gt;
+		    &lt;m:mn&gt;1&lt;/m:mn&gt;
+		  &lt;/m:msub&gt;&lt;/m:ci&gt;
+
+		&lt;m:ci&gt;&lt;m:msub&gt;
+		    &lt;m:mi&gt;k&lt;/m:mi&gt;
+		    &lt;m:mn&gt;2&lt;/m:mn&gt;
+		  &lt;/m:msub&gt;&lt;/m:ci&gt;
+
+	      &lt;/m:apply&gt; 
+	    
+	      &lt;m:apply&gt;
+		&lt;m:sum/&gt;
+		&lt;m:bvar&gt;&lt;m:ci&gt;l&lt;/m:ci&gt;&lt;/m:bvar&gt;
+		&lt;m:lowlimit&gt;&lt;m:cn&gt;0&lt;/m:cn&gt;&lt;/m:lowlimit&gt;
+
+		&lt;m:uplimit&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:minus/&gt;
+		    &lt;m:ci&gt;L&lt;/m:ci&gt;
+		    &lt;m:cn&gt;1&lt;/m:cn&gt;
+
+		  &lt;/m:apply&gt;
+		&lt;/m:uplimit&gt;
+		&lt;m:apply&gt;
+		  &lt;m:times/&gt;
+		  &lt;m:ci&gt;&lt;m:msubsup&gt;
+		      &lt;m:mi&gt;K&lt;/m:mi&gt;
+
+		      &lt;m:mrow&gt;
+			&lt;m:mn&gt;1&lt;/m:mn&gt;
+			&lt;m:mo&gt;,&lt;/m:mo&gt;
+			&lt;m:mrow&gt;
+			  &lt;m:mi&gt;l&lt;/m:mi&gt;
+
+			  &lt;m:mo&gt;+&lt;/m:mo&gt;
+			  &lt;m:mn&gt;1&lt;/m:mn&gt;
+			&lt;/m:mrow&gt;
+		      &lt;/m:mrow&gt;
+		      &lt;m:mi&gt;r&lt;/m:mi&gt;
+
+		    &lt;/m:msubsup&gt;&lt;/m:ci&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:divide/&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:times/&gt;
+		      &lt;m:apply&gt;
+
+			&lt;m:power/&gt;
+			&lt;m:cn&gt;-1&lt;/m:cn&gt;
+			&lt;m:apply&gt;
+			  &lt;m:plus/&gt;
+			  &lt;m:apply&gt;
+
+			    &lt;m:minus/&gt;
+			    &lt;m:ci&gt;&lt;m:msub&gt;
+				&lt;m:mi&gt;k&lt;/m:mi&gt;
+				&lt;m:mn&gt;1&lt;/m:mn&gt;
+
+			      &lt;/m:msub&gt;&lt;/m:ci&gt;
+			    &lt;m:ci&gt;&lt;m:msub&gt;
+				&lt;m:mi&gt;k&lt;/m:mi&gt;
+				&lt;m:mn&gt;2&lt;/m:mn&gt;
+
+			      &lt;/m:msub&gt;&lt;/m:ci&gt;
+			  &lt;/m:apply&gt;
+			  &lt;m:cn&gt;1&lt;/m:cn&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+
+		      &lt;m:apply&gt;
+			&lt;m:sin/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:divide/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:times/&gt;
+
+			    &lt;m:pi/&gt;
+			    &lt;m:ci&gt;l&lt;/m:ci&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:minus/&gt;
+			      &lt;m:ci&gt;&lt;m:msub&gt;
+
+				  &lt;m:mi&gt;k&lt;/m:mi&gt;
+				  &lt;m:mn&gt;1&lt;/m:mn&gt;
+				&lt;/m:msub&gt;&lt;/m:ci&gt;
+			      &lt;m:ci&gt;&lt;m:msub&gt;
+
+				  &lt;m:mi&gt;k&lt;/m:mi&gt;
+				  &lt;m:mn&gt;2&lt;/m:mn&gt;
+				&lt;/m:msub&gt;&lt;/m:ci&gt;
+			    &lt;/m:apply&gt;
+
+			  &lt;/m:apply&gt;
+			  &lt;m:ci&gt;L&lt;/m:ci&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+
+		    &lt;m:apply&gt;
+		      &lt;m:sin/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:divide/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+
+			  &lt;m:pi/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:minus/&gt;
+			    &lt;m:ci&gt;&lt;m:msub&gt;
+				&lt;m:mi&gt;k&lt;/m:mi&gt;
+
+				&lt;m:mn&gt;1&lt;/m:mn&gt;
+			      &lt;/m:msub&gt;&lt;/m:ci&gt;
+			    &lt;m:ci&gt;&lt;m:msub&gt;
+				&lt;m:mi&gt;k&lt;/m:mi&gt;
+
+				&lt;m:mn&gt;2&lt;/m:mn&gt;
+			      &lt;/m:msub&gt;&lt;/m:ci&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+			&lt;m:ci&gt;L&lt;/m:ci&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		
+		  &lt;m:apply&gt;
+		    &lt;m:plus/&gt;
+		    &lt;m:apply&gt;
+
+		      &lt;m:exp/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:plus/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:imaginaryi/&gt;
+
+			  &lt;m:apply&gt;
+			    &lt;m:divide/&gt;
+			  &lt;m:apply&gt;
+			      &lt;m:times/&gt;
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+
+			      &lt;m:pi/&gt;
+			      &lt;m:ci&gt;l&lt;/m:ci&gt;
+			      &lt;m:ci&gt;&lt;m:msub&gt;
+				  &lt;m:mi&gt;k&lt;/m:mi&gt;
+
+				  &lt;m:mn&gt;1&lt;/m:mn&gt;
+				&lt;/m:msub&gt;&lt;/m:ci&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:ci&gt;L&lt;/m:ci&gt;
+
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:exp/&gt;
+
+		      &lt;m:apply&gt;
+			&lt;m:minus/&gt;
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:imaginaryi/&gt;
+			  &lt;m:apply&gt;
+
+			    &lt;m:divide/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:times/&gt;
+			      &lt;m:cn&gt;2&lt;/m:cn&gt;
+			      &lt;m:pi/&gt;
+
+			      &lt;m:ci&gt;l&lt;/m:ci&gt;
+			      &lt;m:ci&gt;&lt;m:msub&gt;
+				  &lt;m:mi&gt;k&lt;/m:mi&gt;
+				  &lt;m:mn&gt;2&lt;/m:mn&gt;
+
+				&lt;/m:msub&gt;&lt;/m:ci&gt;
+			    &lt;/m:apply&gt;
+			    &lt;m:ci&gt;L&lt;/m:ci&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+
+	  &lt;/m:apply&gt;
+	&lt;/m:math&gt;</textarea></td><td><p>
+<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns="http://www.w3.org/1999/xhtml" display="block"><m:semantics><m:mrow>
+	  <mrow xmlns:mmled="http://cnx.rice.edu/mmled"/>
+	</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply>
+	    <m:forall/>
+	    <m:bvar><m:ci><m:msub>
+		  <m:mi>k</m:mi>
+
+		  <m:mn>1</m:mn>
+		</m:msub></m:ci></m:bvar>
+	    <m:bvar><m:ci><m:msub>
+		  <m:mi>k</m:mi>
+		  <m:mn>2</m:mn>
+		</m:msub></m:ci></m:bvar>
+	    <m:condition>
+
+	      <m:apply>
+		<m:neq/>
+		<m:ci><m:msub>
+		    <m:mi>k</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub></m:ci>
+		<m:ci><m:msub>
+		    <m:mi>k</m:mi>
+
+		    <m:mn>2</m:mn>
+		  </m:msub></m:ci>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:selector/>
+
+		<m:ci><m:msup>
+		    <m:mi>K</m:mi>
+		    <m:mi>R</m:mi>
+		  </m:msup></m:ci>
+		<m:ci><m:msub>
+		    <m:mi>k</m:mi>
+		    <m:mn>1</m:mn>
+
+		  </m:msub></m:ci>
+		<m:ci><m:msub>
+		    <m:mi>k</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub></m:ci>
+	      </m:apply> 
+	    
+	      <m:apply>
+		<m:sum/>
+
+		<m:bvar><m:ci>l</m:ci></m:bvar>
+		<m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+		<m:uplimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>L</m:ci>
+		    <m:cn>1</m:cn>
+
+		  </m:apply>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msubsup>
+		      <m:mi>K</m:mi>
+		      <m:mrow>
+			<m:mn>1</m:mn>
+
+			<m:mo>,</m:mo>
+			<m:mrow>
+			  <m:mi>l</m:mi>
+			  <m:mo>+</m:mo>
+			  <m:mn>1</m:mn>
+			</m:mrow>
+		      </m:mrow>
+
+		      <m:mi>r</m:mi>
+		    </m:msubsup></m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:power/>
+
+			<m:cn>-1</m:cn>
+			<m:apply>
+			  <m:plus/>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci><m:msub>
+				<m:mi>k</m:mi>
+				<m:mn>1</m:mn>
+
+			      </m:msub></m:ci>
+			    <m:ci><m:msub>
+				<m:mi>k</m:mi>
+				<m:mn>2</m:mn>
+			      </m:msub></m:ci>
+			  </m:apply>
+			  <m:cn>1</m:cn>
+
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:sin/>
+			<m:apply>
+			  <m:divide/>
+			  <m:apply>
+			    <m:times/>
+			    <m:pi/>
+
+			    <m:ci>l</m:ci>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci><m:msub>
+				  <m:mi>k</m:mi>
+				  <m:mn>1</m:mn>
+				</m:msub></m:ci>
+
+			      <m:ci><m:msub>
+				  <m:mi>k</m:mi>
+				  <m:mn>2</m:mn>
+				</m:msub></m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:ci>L</m:ci>
+
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:sin/>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:times/>
+
+			  <m:pi/>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci><m:msub>
+				<m:mi>k</m:mi>
+				<m:mn>1</m:mn>
+			      </m:msub></m:ci>
+			    <m:ci><m:msub>
+
+				<m:mi>k</m:mi>
+				<m:mn>2</m:mn>
+			      </m:msub></m:ci>
+			  </m:apply>
+			</m:apply>
+			<m:ci>L</m:ci>
+		      </m:apply>
+
+		    </m:apply>
+		  </m:apply>
+		
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:plus/>
+			<m:apply>
+
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:apply>
+			    <m:divide/>
+			  <m:apply>
+			      <m:times/>
+			      <m:cn>2</m:cn>
+			      <m:pi/>
+
+			      <m:ci>l</m:ci>
+			      <m:ci><m:msub>
+				  <m:mi>k</m:mi>
+				  <m:mn>1</m:mn>
+				</m:msub></m:ci>
+			    </m:apply>
+			    <m:ci>L</m:ci>
+
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:times/>
+			      <m:cn>2</m:cn>
+			      <m:pi/>
+
+			      <m:ci>l</m:ci>
+			      <m:ci><m:msub>
+				  <m:mi>k</m:mi>
+				  <m:mn>2</m:mn>
+				</m:msub></m:ci>
+			    </m:apply>
+			    <m:ci>L</m:ci>
+
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply></m:annotation-xml></m:semantics></m:math></p></td></tr>
+
+</table>
+
+
+
+  </body>
+</html>

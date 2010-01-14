@@ -1,0 +1,16 @@
+from Products.CMFCore.tests.base.security import AnonymousUser, OmnipotentUser
+from AccessControl.SecurityManagement import newSecurityManager
+user = OmnipotentUser().__of__(app)
+newSecurityManager(None, user)
+
+from Testing.makerequest import makerequest
+app=makerequest(app)
+
+try:
+    app.plone.portal_quickinstaller.reinstallProducts(['MathEditor'])
+except:
+    app.plone.portal_quickinstaller.installProduct('MathEditor')
+
+import transaction
+transaction.commit()
+print "transaction complete"

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:pref="http://www.w3.org/2002/Math/preference"
+  pref:renderer="css">
+  <head>
+    <title>mathml-js Editor Test Page</title>
+    <link rel="stylesheet" type="text/css" href="../skins/math-editor/math-editor/math-editor.css" />
+	<!-- cnx.org-specific styling -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/plone/document.css" />
+    <link rel="stylesheet" type="text/css" href="/eip-help/eip-help.css" />
+    <style type="text/css">
+/* Hacks because EIP-help takes some CSS liberties adding padding */
+td, th {
+border-collapse:collapse;
+padding:0;
+}
+ul {
+line-height: default;
+margin: 0;
+}
+li {
+margin-bottom:0;
+}
+    </style>
+
+	<!-- Ext.js requirements -->
+    <link rel="stylesheet" type="text/css" href="../lib/extjs/resources/css/ext-all.css" />
+ 	<script type="text/javascript" src="../lib/extjs/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../lib/extjs/ext-all-debug.js"></script>
+
+    <!-- Add the parser requirements -->
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/json2.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/tokens.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/lib/tdop/parse.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-exceptions.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-templates.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-categories.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-utils.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-infer.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-node.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-model.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-parser.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-position.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-render.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-input.js" />
+    <script type="text/javascript" src="../skins/math-editor/math-editor/scripts/math-editor.js" />
+
+    <script type="text/javascript">
+    //<![CDATA[
+MathUtil.rootPath = "../skins/math-editor/math-editor/";
+
+Ext.onReady(function(){
+	var editor = new MathEditor(document.getElementById('editor'));
+});
+    //]]>
+    </script>
+  </head>
+  <body>
+
+<textarea id="editor" cols="80" rows="20">&lt;m:math xmlns:m="http://www.w3.org/1998/Math/MathML"&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:eq/&gt;
+	      &lt;m:ci&gt;&lt;m:msub&gt;
+		  &lt;m:mi&gt;e&lt;/m:mi&gt;
+		  &lt;m:mi&gt;n&lt;/m:mi&gt;
+		&lt;/m:msub&gt;&lt;/m:ci&gt;
+	      &lt;m:apply&gt;
+		&lt;m:times/&gt;
+		&lt;m:apply&gt;
+		  &lt;m:divide/&gt;
+		  &lt;m:cn&gt;1&lt;/m:cn&gt;
+		  &lt;m:ci&gt;T&lt;/m:ci&gt;
+		&lt;/m:apply&gt;
+		&lt;m:apply&gt;
+		  &lt;m:int/&gt;
+		  &lt;m:bvar&gt;
+		    &lt;m:ci&gt;τ&lt;/m:ci&gt;
+		  &lt;/m:bvar&gt;
+		  &lt;m:lowlimit&gt;
+		    &lt;m:cn&gt;0&lt;/m:cn&gt;
+		  &lt;/m:lowlimit&gt;
+		  &lt;m:uplimit&gt;
+		    &lt;m:ci&gt;T&lt;/m:ci&gt;
+		  &lt;/m:uplimit&gt;
+		  &lt;m:apply&gt;
+		    &lt;m:times/&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:ci type="fn"&gt;f&lt;/m:ci&gt;
+		      &lt;m:ci&gt;τ&lt;/m:ci&gt;
+		    &lt;/m:apply&gt;
+		    &lt;m:apply&gt;
+		      &lt;m:times/&gt;
+		      &lt;m:apply&gt;
+			&lt;m:divide/&gt;
+			&lt;m:cn&gt;1&lt;/m:cn&gt;
+			&lt;m:ci&gt;T&lt;/m:ci&gt;
+		      &lt;/m:apply&gt;
+		      &lt;m:apply&gt;
+			&lt;m:int/&gt;
+			&lt;m:bvar&gt;
+			  &lt;m:ci&gt;t&lt;/m:ci&gt;
+			&lt;/m:bvar&gt;
+			&lt;m:lowlimit&gt;
+			  &lt;m:cn&gt;0&lt;/m:cn&gt;
+			&lt;/m:lowlimit&gt;
+			&lt;m:uplimit&gt;
+			  &lt;m:ci&gt;T&lt;/m:ci&gt;
+			&lt;/m:uplimit&gt;
+			&lt;m:apply&gt;
+			  &lt;m:times/&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:ci type="fn"&gt;g&lt;/m:ci&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:minus/&gt;
+			      &lt;m:ci&gt;t&lt;/m:ci&gt;
+			      &lt;m:ci&gt;τ&lt;/m:ci&gt;
+			    &lt;/m:apply&gt;
+			  &lt;/m:apply&gt;
+			  &lt;m:apply&gt;
+			    &lt;m:exp/&gt;
+			    &lt;m:apply&gt;
+			      &lt;m:minus/&gt;
+			      &lt;m:apply&gt;
+				&lt;m:times/&gt;
+				&lt;m:imaginaryi/&gt;
+				&lt;m:ci&gt;&lt;m:msub&gt;
+				    &lt;m:mi&gt;ω&lt;/m:mi&gt;
+				    &lt;m:mn&gt;0&lt;/m:mn&gt;
+				  &lt;/m:msub&gt;&lt;/m:ci&gt;
+				&lt;m:ci&gt;n&lt;/m:ci&gt;
+				&lt;m:ci&gt;t&lt;/m:ci&gt;
+			      &lt;/m:apply&gt;
+			    &lt;/m:apply&gt;
+			  &lt;/m:apply&gt;
+			&lt;/m:apply&gt;
+		      &lt;/m:apply&gt;
+		    &lt;/m:apply&gt;
+		  &lt;/m:apply&gt;
+		&lt;/m:apply&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:math&gt;</textarea>
+
+    <!-- Google Analytics tracking. -->
+    <script type="text/javascript" src="https://google-analytics.com/ga.js" />
+    <script type="text/javascript">
+      try {
+        var benchmarkTracker = _gat._getTracker("UA-7903479-1");
+        benchmarkTracker._setDomainName('cnx.org');
+        benchmarkTracker._trackPageview();                
+        var overallTracker = _gat._getTracker("UA-5033010-1");
+        overallTracker._setDomainName('cnx.org');
+        overallTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+  </body>
+</html>
+

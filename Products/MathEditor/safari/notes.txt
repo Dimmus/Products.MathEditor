@@ -1,0 +1,5 @@
+When an XSLT has HTML (like input tag) and the safari page is HTML (not XHTML)
+  then the XSLT will not put close tags on it. (so I'm using <span> for now.
+
+Safari will render and load jsMath in a .xhtml file (with some changes in jsMath 
+because DOM.innerHTML isn't defined) but Firebug won't work.

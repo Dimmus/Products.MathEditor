@@ -1,0 +1,6 @@
+MathEditor 0.1.1 (18 Aug 2009)
+  - Additional documentation navigation and redirects
+  - Added Google Analytics to public pages
+
+MathEditor 0.1 (30 Jun 2009)
+  - initial version.

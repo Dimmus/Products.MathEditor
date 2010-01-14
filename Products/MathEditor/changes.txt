@@ -1,0 +1,828 @@
+2009-06-29
+Fixed Undo/Redo with unparsed input by deleting the cloned if for MathNode (Fixes #9253).
+
+2009-06-18
+Changed context background color to show up on laptops (Fixes #9238).
+Fixed MathML Editor help link (Fixes #9239).
+
+
+2009-06-16
+mml:semantics inside a mml:math works once again (works when editing full source, but not when pasting mml:semantics) (Fixes #9236)
+
+
+2009-06-15
+View Source now extends to the bottom of the page so resizing the popup window will resize the editor (Fixes #9230).
+
+
+2009-06-14
+Losing focus should cause text to rerender (clicking Preview, View Source, anywhere else on the page). Fixes #9225
+Fixed accidentally unwrapping (pressing backspace in a block) of mml:interval's.
+Added 2em padding to window (Fixes #9227)
+Removed window scrollbar (Fixes #9226)
+Added separate feedback link to my email (Fixes #9228)
+ 
+
+2009-06-12
+Menus now work in Firefox 2 (used to take up the entire horizontal space).
+Fixes #9216 by always having a scrollbar to the right.
+Fixes #9217 by adding some padding to the auto-resizing function.
+
+
+2009-06-05
+Added links to documentation. Connexions doesn't render mml:interval properly so I added an exception.
+
+
+2009-05-20
+Changed Mouse events to use Ext-style listeners.
+Moved tests into a tests subdir (Requires the MathEditor to be running in a webserver) and verified they work.
+
+
+2009-05-10
+Changed source edit textarea to be larger and auto-size its width.
+Fixed bug in pressing Backspace in an invisible.
+Fixed bug when updating MathEditor.guiParseXML (to return a doc and error, not just a doc).
+
+
+2009-05-08
+Works in Firefox 2 again!
+Fixed double-delete when cutting.
+Moving to more Ext-style validation.
+
+
+2009-05-06
+When highlighting with the mouse, editor would sometimes think something was entered (cursor value changed) when it didn't and would reparse the MathML.
+Added an invariant check in rendering that (with a few exceptions) every node must have a parent.
+
+
+2009-05-04
+Added install instructions.
+Updated readme and design doc.
+Fixed Select All.
+
+2009-05-03
+Mouse events (mousedown/up and click/dblclick are in a more Ext-friendly way.
+Added Select All (Ctrl+A).
+
+
+2009-05-02
+Ctrl Shortcut keys are now attached to the whole editor, not just the cursor (so you can press Ctrl+Z anywhere in the editor, not just when the cursor is in focus).
+Ext-izing the main editing area (not done).
+Navigation is handled by Ext's KeyMap and KeyNav.
+Reduced code in Model (updates are done in MathNode and only the root node has a model to notify).
+All XML parsing goes through 1 parser.
+Fixed mml:bvar* (like mml:foreach) and deleting mml:piece.
+Fixed navigation bug in mml:mtable.
+
+
+2009-04-30
+Cleaning up math-utils.js . Removing cruft.
+Upgraded to use Ext.form.TextArea for the cursor (supports nicer resizing and cleaner event handling).
+Removed graying of toolbars.
+Can add greek symbols in entered equations (not just alone).
+Greek subscripts work (Fixes #7365).
+Fixed several causes of pNode not found.
+Added Extjs CSS reset code.
+
+
+
+2009-04-29
+Status bar now shows busy status when loading up and when parsing XML.
+Presentation MathML inside a mml:ci works again.
+Subscript shortcut ("x_1") work again.
+Fixed Meta key handling for apple (Uses the meta key instead of Ctrl key).
+
+2009-04-27
+Changed popup to Zope page template so server sends correct mime type (application/xhtml+xml).
+Added Zope/Plone install code.
+Changed Editor window description.
+
+
+2009-04-26
+Reorganized to fit as a Zope Product.
+Reading a mmled:block from "View Source" works.
+Ignores when cannot parse inisible cursor.
+Allows any text in an mml:mtext (no parse errors).
+Selecting all text in an input and pressing left/right does NOT move the cursor to another math node.
+Return key does not create newlines.
+
+
+2009-04-24
+Added support for the Delete key.
+
+2009-04-22
+Fixed congealing operations like "+" and "*".
+Added unwrapping operations (ie delete 1 child of mml:power and mml:power should be removed, and other child should be put in its place)
+
+2009-04-21
+Changed images to use Tango (non-sprites).
+Fixed navigating within a mml:ci.
+Fixed parsing mml:apply/mml:csymbol[@definitionURL].
+Editor starts within mml:semantics but keeps the rest around (may need to clear Presentation MathML if we use the mml:annotation-xml).
+Changed templates to allow empty mml:mrow since OpenOffice adds one to the bottom of all mml:math.
+Added a mml:reln template even though it's deprecated for now.
+Fixed mml:csymbol-related templates.
+Fixed MathNode cloning so Undo/Redo work.
+
+
+2009-04-20
+Removed a TON of "custom" hack code to convert MathML to MathNode and back.
+Simplified process converting MathML to MathNode and back to MathML.
+Can now load most of MathML in Connexions repository except mml:semantics and mml:annotation-xml.
+Refactored MathNode
+Cleared out unused functions.
+Removed id map in Model and put it in MathRender since MathRender (and MathInput) is the only piece that needs it.
+Removed MathClipboard and just use the OS clipboard.
+
+
+2009-04-17
+Switched to using textarea for cursor instead of input for multiline Cut/Copy.
+
+
+2009-04-16
+Changed menus to work in Firefox 2.
+Disabled debugging alerts and code by default (enabled in tests).
+Fixing mml:csymbol rendering in the editor.
+Fixed cleanup code which removed (among many other things) mml:bvar from the cleaned up code (Caused problems Copying/Pasting).
+Removed Cut/Copy/Paste icons from the toolbar.
+Status bar path is more descriptive when showing mml:csymbol.
+Fixed bug in Model.appendChild.
+Removes empty mml:logbase and mml:degree for preview.
+
+
+2009-04-14
+Fixing invisible input boxes to have MathML (XML) selected in them so Ctrl+C will ACTUALLY copy the XML onto the OS clipboard.
+Ctrl+C and Ctrl+X seem to work (Ctrl+V worked before)
+
+Main editor box has the focus when editor starts up.
+Refs #8872 : Code now de-highlights when the cursor is blurred. Code also re-highlights when the toolbar is clicked (but does not de-highlight when cancelled).
+Refs #8873 : Added confirm to ask if the user wants to navigate away from this page (accidental Math loss)
+Fixes #8869 : Placed a border around the editor area and used cnx's EIP CSS (hardcoded for now).
+
+
+2009-04-12
+Fixed problem rendering mml:ci when mml:ci had only a text node.
+
+2009-04-11
+Pasted MathML is automatically converted to WYSIWYG MathNodes (for pasting from other apps like MathType).
+Converts mml:reln to mml:apply (m16822).
+Fixes many of the pNode not found errors (need to do exhaustive check).
+Moved cleanup before inferTypes so things like mml:reln are caught before modelUpdated can fire using the updated node.
+Moved the validToContract (expandables that aren't visible) out to a global because it's used for rendering as well as finding the next pNode to place the cursor on.
+Paste defaults to the OS clipboard paste when nothing is on the clipboard.
+Removed special cases in mml:ci (formatting problems using xsl:copy).
+Fixed code with empty mml:apply (m12340).
+
+2009-04-09
+Can now paste MathML into an input box (Don't need to switch to Source mode, can just copy paste from MathType/etc).
+
+2009-04-08
+Created custom menu for "Classical Functions" and Symbols/Constants.
+Created Greek symbol selection menu (that inserts into the input box) Using Ext.menu.ColorItem.
+If parser is given 1 character and a parse error occurs, assume it is a unicode character.
+
+2009-04-08
+Added exception to infer negation (same element as mml:minus but only 1 child).
+Adding special cases for mml:csymbol all over the place.
+Fixed the following "Child type not found":
+ * child=msub parent=cn (m10346)
+ * child=cn parent=apply (m13605) Fixed inferring negation (not minus)
+ * child=bvar parent=apply (m16250) mml:csymbol needs to have block for text
+ * child=list parent=apply (m13109) mml:list is navigable
+ * child=mfenced parent=cn (m11327)
+ * child=lowlimit parent=apply (m2111) Added lowlimit to #evaluateat
+ * child=degree parent=bvar : Fixed with previous commit
+ * child=domainofapplication parent=apply (m11294)
+ * child=apply parent=bvar (m12919)
+ * child=apply parent=apply
+
+Noted the following for "future" work:
+ * child=mtext parent=cn (m10081) Used mtext for units
+ * child=degree parent=apply (m11748) Don't handle this yet
+ * child=sep parent=cn
+
+Still have several untested.
+
+
+2009-04-07
+Renders mml:mi, mml:mn, mml:mtext, mml:mo, mml:csymbol input boxes for editing (previously they were converted to mml:cn or mml:ci only).
+Added editing of mml:csymbol text (necessary for the stats extensions defined using definitionURL).
+
+
+2009-04-06
+Fixed rendering of mml:diff and mml:partialdiff.
+Added code to handle mml:bvar with a mml:degree (in mml:diff and mml:partialdiff).
+Added template for mml:sum with 2 mml:bvars and a mml:domainofapplication (m16250).
+
+
+2009-04-01
+Bug fixing Presentation MathML:
+ * Editing a mml:mtd in the expandable (last) mml:mtr requires expanding twice in MathNode.replaceChildWith.
+ * When a mml:semantics occurs, I set it as the root.
+ * mml:annotation and mml:annotation-xml are ignored in the model (but will remain in the XML)
+ * Now renders large Presentation MathML elements (those with a depth of 12 non-mml:apply nodes) without error.
+
+2009-03-30
+Fixed mml:mtable rendering (can't wrap mml:mtr and mml:mtd in a mml:mrow).
+Fixed preview with Presentation MathML now just copies the Presentation MathML through.
+Changed xhtml:input and cursor to be Ext.form.TextFields.
+Added generic mml:apply template for supporting the 1st argument being a mml:ci.
+ 
+
+2009-03-28
+Added Preliminary Presentation MathML support.
+
+2009-03-27
+Fixed Clicking when Preview occurs.
+Fixed that Preview doesn't render mml:sum/mml:interval properly (only renders lowlimit/uplimit).
+Changed .getDOMNode() to just .dom.
+Changed .getAllChildren() to just .getChildren().
+
+
+2009-03-25
+Added special case for cursor navigation around nodes with tables (mml:piecewise and mml:matrix).
+Added auto-insertion of mml:matrixrow and mml:piece (Matrices and piecewise functions now work)
+XML source is fixed so things like mml:logbase are not rendered if they are "optional". (fixes preview)
+Status bar now always updates when the cursor moves.
+Can now navigate to expandables (couldn't before because sometimes they were collapsed).
+
+
+2009-03-24
+Moved to use EXT version of the editor everywhere (cnx and in all tests).
+Added keyboard shortcuts for several operations.
+Added simple status bar to show where the current selection is (Needs to allow clicks, and highlight the nodes when hovering).
+Fixed inference bug where a mml:apply with a mml:mo or mml:ci child was given the mml:mo or mml:ci template instead of the UNKNOWN one.
+Added mml:mfenced and mml:declare to the list of templates.
+
+A previous commit:
+ * Fixes #8364 : Works with the rewrite
+ * Fixes #8340 : MathPosition now describes the cursor abstraction
+ * Fixes #8341 : All meta information is stored in MathNodes
+ * Fixes #8342 : Now works before and after existing operations
+ * Fixes #8388 : Since we store everything in MathNodes
+ * Fixes #8337 : Now JSON is used by all and attributes on blocks are only used when feeding information to XSLT
+
+
+
+2009-03-23
+Added preview button.
+Made styles of blocks consistent.
+
+
+2009-03-22
+Added support for changing qualifiers.
+Example: sum+int+product=set2+list2=probability+evaluateat
+Removed a few templates for mml:max/mml:min.
+Added context menu for elements.
+Fixed undo/redo.
+
+
+2009-03-21
+Adding clipboard functionality.
+Fixed more Array lookups.
+Moved DOM node creation out of MathNode and into Model.
+Fixed #evaluateat that only specifies a mml:lowlimit (but no mml:uplimit).
+Added rendering for mml:forall and mml:exists so if there are mml:bvar's AND mml:condition, both get rendered.
+Added MathNode.clone for clipboard and undo/redo.
+Added icons to toolbar buttons.
+Added Undo/Redo to toolbar.
+Added "View Source" to toolbar.
+Combined templates for int, sum, product so there is only 1 template to match to.
+Added tooltips to all buttons.
+
+2009-03-18
+Starting Ext.js support.
+Changed some styling for optional blocks and for showing where the invisible cursor is located.
+Fixed array lookups to work with extjs (ExtJS adds a "remove" method, so we can't just do "for x in array").
+Added Toolbar buttons for templates and categories.
+Buttons auto-"disable" (unadvise) for the user.
+Changed some styling for highlighting and marking optional boxes.
+Fixed bugs in updating when the selection changes.
+
+
+2009-03-17
+Added support for mouse highlighting.
+Fixed bug with mml:sum (did not accept mml:interval).
+mmled:block now correctly keeps the invalid syntax when selected.
+
+2009-03-11
+Text replacement now works.
+Started cursor navigation; works mostly, still have corner cases (and tests to write).
+Fixed presentation rendering so keyboard navigation works through Presentation MathML.
+Switched to use mml:interval by default instead of mml:condition.
+Fixed placing the cursor when navigating into an input box (put it to the left of text when moving in from a prev node).
+
+2009-03-10
+Created math-position.js, an abstraction that handles the movement of the cursor.
+Listeners are now notified in order (not based on the hash of their id).
+When the model sends notifications, it now sends a "hint" as to the next node to be selected.
+MathRender has a static way of finding the nearest MathRender (for input eventually).
+Changed the definition of what it means to be selectable (for the Iterator).
+
+
+2009-03-07
+Started MAJOR code rewrite (in the scripts/ directory).
+Created a MathNode (math-node.js) that stores metadata about type-checked MathML Nodes.
+Wrote the XML Manipulation piece (math-model.js).
+Wrote the Text parsing piece (math-parser.js).
+Wrote the core Rendering piece (math-render.js).
+Wrote a type-inference piece (math-infer.js).
+Created a special file for special-case code (math-exceptions.js).
+Wrote several unit tests (math-tests.js and test.xhtml).
+Details from previous commit:
+ * math-infer: Added real type inference and reordering of MathML qualifiers.
+ * math-model: Added listeners so renderer can hook in.
+ * math-model: Added hook to infer types immediately on the given document.
+ * math-node: Changed _constructDOMNodeFromTemplate so inference adds children correctly (not done).
+ * math-node: Corrected bugs in several functions.
+ * math-node: Created accessor functions attaching parsed children.
+
+
+2009-02-27
+Changed how deletes work to be more seamless (do the sum of many variables, and backspace to delete them one by one).
+Editor now used "real" @id attributes (easier for automated testing).
+Removed all uses of @was-expanded and most of @__type (except in blocks and render for the XSLT).
+Pretty large code replace. New things don't work, like piecewise functions.
+Added unit tests to track what still needs to be done.
+
+
+2009-02-25:
+Removing (almost done) reliance on ATTR_TYPE and instead looking up expectedType and actualType in the JSON templates.
+Fixed templates and types on statistics functions so type-inference works.
+
+2009-02-24:
+Added some jsmath-specific javascript for onclick handling (still doesn't work).
+Fixed #8446 (Invalid math in a textarea does not overwrite existing math).
+Presentation MathML now shows up in different color.
+Fixes #8445 The XSLT loading now runs much faster (changed the document the XSLT was created in from the HTML document to a new one).
+
+2009-02-22:
+Fixes #8423
+Moved the parser code from math-input.js and into math-parser.js
+Created a page that dynamically parses math between $$'s and replaces it with MathML.
+mml:otherwise is now selectable and removable.
+PDF and CDF were not generating correctly.
+
+2009-02-20:
+Added a jsMath extension called MathEditor which is currently based on bbox but takes in the @id.
+
+2009-02-19:
+jsMath version in Safari and Firefox now "work" again, at least partially.
+They also work with bounding boxes (useful for id generation later)
+
+2009-02-16:
+If you click in the editor but not on the equation, the cursor moves to the end of the equation.
+Fixed entities in mathmlc2p that used disable-output since editor would have displayed the unicode sequence.
+Multi-line equals now always occur when there are more than 2 children of a mml:eq.
+Fixed the help page to be a bit more useful.
+Moved from using templates.xml
+Fixed collapsing so operations other than +*= remain expanded.
+Fixed mml:forall and mml:exists so it renders correctly.
+
+2009-02-14:
+ * Fixes #8343
+ * A node may have more than one class (using addClassName instead of just replacing)
+ * Syntax errors remain (in mmled:block/text() ) and have a red dotted underscore. 
+
+
+2009-02-13:
+ * Move the documentation out of the blank editor and into a separate file.
+ * Feedback link should open in a new tab.
+ * Some elements are not clickable but should be.
+ * Operations (like mml:piecewise and mml:matrix) that are rendered in a mml:mtable need special code when the cursor selects an entire mml:mtr
+ * Consistently move the cursor when the user selects something to replace and either presses backspace, clicks delete/cut/copy or an operation from the toolbar
+ * Correctly remove the blue background when something else is selected
+ * Buttons (to add a row) didn't display
+
+
+2009-02-12: 2h
+Fixed mml:lt rendering the escaped &lt; word instead of the less than symbol.
+Fixed examples so they work.
+Added link to Safari/IE/Chrome tests.
+
+
+2009-02-11: 8h
+Fixed bug8045.
+Changed XSLT's to be closer to their original versions.
+Moved files around (reorganizing).
+Fixed root rendering when mml:degree is not the 2nd child.
+
+
+2009-02-08: 8h
+Finally moved each file into a separate class.
+Eclipse almost likes all the code.
+Fixes mml:bvar not appearing when qualifier is added.
+
+The editor is built up as a hierarchy:
+math-utils.js    : Static functions used throughout.
+math-document.js : Basic XML DOM storage and id-generation
+math-model.js    : Basic Math DOM manipulation and keeps track of the editor in focus
+				 : Also, keeps track of the current selection and notifies everyone
+math-render.js   : Renders the Content MathML to P-MathML or Latex for jsMath
+math-input.js    : Maintains the cursor, parses text, and type-annotates the XML
+math-editor.js   : Combines the previous into the actual MathEditor
+math-toolbar.js  : Renders the toolbar and buttons
+
+2009-02-06: 8h
+Fixed undo so it works properly (after replacing, updating the structure).
+Fixed firebug inclusion. Should work on non-firebug browsers.
+safari: Does not support multiline equations (removed from safari-c2p.xsl).
+removed jsmath equations temporarily for firefox.
+Fixed a bug in ctop.xsl's mml:plus.
+
+2009-02-03: 8h
+Shift+Arrow selects the correct parents for mml:ci/cn, mmled:block and mml:*.
+Changing modes for things like mml:sum automatically ensures a mml:bvar exists.
+
+2009-01-25: 8h
+Added green dotted line when types don't match
+
+2009-01-23: 4h
+Moved templates that used xsl:apply-imports into cnxmathmlc2p-custom.xsl
+Moved mml:forall and mml:exists into ctop-custom.xsl
+
+ 
+2009-01-21: 8h
+Safari now renders (not edits) Math using jsMath (some formulas don't work yet).
+Firebug Lite works with Safari as well.
+
+2009-01-20: 3h
+Moved test pages to separate dir and updated a few templates.
+Added Bug #8045 test page.
+Added w3c's c2p logic templates so mathmlc2p.xsl does parentheses.
+
+
+2009-01-20: 10h
+Got Xerox mathmlc2p.xsl to render (eventually for preview mode)
+Updated *.js so editor works without a toolbar.
+Moved ctop.xsl (or mathmlc2p.xsl) include into c2p.xsl.
+Added custom cnxmathmlc2p.xsl so I can keep track of my additions to cnxmathml.xsl.
+cnxmathml's $forallequation no longer uses apply-imports (so I check the variable in the xsl:match).
+math-editor.xsl now passes throug parenthesis information between modes (c2p, id-maker).
+Embedded Presentation MathML should render correctly.
+Added a $children xsl:param to the "set" xsl:template (so mml:min/mml:max render correctly when they have mml:bvar's but no mml:condition)
+Replaced entities in mathmlc2p.xsl with escaped unicode (javascript xslt doesn't like entities).
+
+
+2009-01-18: 4h
+Got 300 equations to render in the editor.
+Updated mml:diff template to work with mmled:block.
+Updated "set" template to not put in a leading comma for things like mml:max.
+
+2009-01-16: 10h
+Found error in m11444 (large) equation 2.
+Fixed mml:logbase auto-insertion in inferTypes.
+Added 5 test*.xhtml files that are pretty comprehensive.
+Fixed bug where mml:max/min would show up as "max{,1,2}" (a leading quote)
+
+
+2009-01-15: 5h
+Added visual cues (CSS) for Presentation MathML and invalid MathML (Content in Presentation).
+Fixed cnxmathmlc2p.xsl to use escaped entities instead of just the unicode (and Commented out the original entities).
+Raising a trig function to a power now renders correctly (as per cnx's customizations)
+
+
+2009-01-15: 10h
+email: Looking into bug 8045.
+email: Suggested using mml:separator instead of mml:msub
+Added cursor highlighting for Firefox 2.
+Type inference adds bvar expandables in the right place.
+Fixed bug in Firefox 2 whare things were still highlighted even though no longer selected.
+ 
+
+2009-01-14: 15h
+math-input: inferTypes does a little better job of recursing and inferring.
+xslt: Moved custom editor code into math-editor.xsl so the c2p XSLT's are (largely) unmodified (except adding a mode="c2p" for xsl:template match).
+Removed Debugs
+Now supports rendering many of the "large" cnx equations (still has bugs). 
+
+2009-01-04: 30h
+Added nicer ids for mml:apply
+math-input:
+  Simlpified setCursor a bit.
+  Removed unused code.
+math-utils:
+  Added firebug console interaction
+  The 1st child of mml:apply may need an ID (like mml:csymbol or mml:ci)
+  swapNodeWith optionally swaps IDs (cursor shouldn't have the id swapped) 
+math-css:
+  Input boxes use monospace font.
+
+
+2008-12-30: 20h
+Moved from single-file to XMLHttpRequest to pull templates and c2p.
+Simplified input box handling.
+Fixed input box disappearing.
+xslt uses cnx's extensions.
+Working through cnx's c2p customizations (up to realimaginarynotation, skipped the trig funcs).
+Added MathEditor.rootPath for image loading an template/xslt XML files.
+Removed kupu references to 10.211.*
+mml:* @type is preserved when replacing a variable.
+Hack: source-view works again (need to disable its updateState when displayed and make sure it's reparsed before re-enabled)
+Removed MathEditor.currentFocus and associated timer.
+
+
+
+2008-12-29: 8h
+Got jsMath rendering working
+
+2008-12-26: 14h
+m10152 renders correctly.
+Added Qualifier for mml:int, mml:sum, mml:product
+mml:int, mml:forall, mml:exists characters scales vertically.
+Added probability templates (still need to get them to render properly).
+Added minimum textarea size.
+math-input: Fixed input flicker when typing (it resizes too much to make sure text doesn't scroll out of view).
+math-input: Added shift selection.
+math-input: outlines current cursor node only when NOT hilighted.
+math-input: Infer types on minus work.
+Added Java code to read MathML from Modules for debugging
+
+2008-11-16: 4h
+Fixed unnecessarily italicizing selected text.
+UpdateState (except renderer) is done asynchronously (for response time).
+Allow Enter in text box.
+ParseInputValue now always returns a node,wasAdded pair.
+Changed resizer interval to 30ms instead of 1.
+
+2008-11-10: 4h
+Cleaning up changes for commit.
+
+2008-11-10: 34h
+Added cursor to editor.
+Performs some smart inference (buggy) when one enters things like "^2" after an expression.
+Supports click and doubleclick (but not mouse hilighting).
+Updates the toolbar when selection changes (select an entire ci).
+Does not support subscripts "x_2" yet.
+Supports deletion if the cursor is after a node.
+Does not support deleting if the cursor is right after a visible "+".
+Negation is still incorrect.
+Sometimes ("partialdiff") the equaion is inserted as a var.
+Does not perform "+" collapsing.
+Does not assume multiplication when one enters text before/after an expression. 
+
+2008-10-30: 2h
+Added hours to changelog.
+Added support for inserting equations before existing equations.
+
+2008-08-23: 8h
+Text selection via mouse dragging implemented.
+Fixed search.
+Adding Drawers for Properties (and looking at how to once again reorganize the code).
+Adding mml:matrixrow and mml:piece is both Keyboard-friendly and mouse-friendly (it's a button).
+Prefixed Debugging statements so I know what bug they were added to fix.
+
+2008-08-22: 9h
+Added Preview button.
+Changed assertions to log instead of alert.
+looked into Drag-n-Drop in XHTML+MathML (it works).
+Added Button for expandables that are constructors (piece and matrixrow)
+
+2008-08-21: 10h
+Changed to use input boxes everywhere. Simplifies much code. Still need to clean code up.
+All inputs use only focus (chcange selection), blur (update node), and keydown (make input visible).
+Cleaned up XSLT a little.
+Only other thread is a delayedDeactivate (for onBlurs).
+Removed the delayedRefresh.
+Removed the global keyboard handler.
+Simplified renderer.
+Toolbar correctly focuses and blurs when leaving the editor (via a wrapped onblur).
+Added a little check in utils to optionally use the XML pretty-printer.
+Allow assertion alerting to be disabled (for production).
+Deactivating the editor grays out the math in FF2 also.
+
+2008-08-19: 4h
+Tabs and refreshes seem to work.
+
+2008-08-18: 12h
+Working on tabbing through multiple editors (and setting them inactive when the user tabs out).
+Added flags to events as hints.
+Loading the source view disables buttons.
+Removed some hardcoded global flags for when focus changes and refreshes should occur.
+Made refresh asynchronous (so onchange and onclicks would register) but this is a problem in Firefox2.
+
+2008-08-17: 7h
+Split the giant javascript file into modules "document, editor, input, render, toolbar, helpers".
+Preparing to rewrite code.
+Changed MathEditor instance variables to reflect which module they belong to.
+Made the renderer a tool(ish), and cleaned up a little the corner cases of tabbing out of the editor.
+
+2008-08-16: 12h
+Improved search with rankings and clicking categories toggles whether the bar is visible or not.
+Added a search button that matches on names, aliases, and descriptions (need to improve the ranking).
+Fixed median and mode (onclick didn't work).
+Alerts now only appear once (like when the editor is unable to parse an expression in an input box).
+Changed global variables to start with an underscore.
+Removed commas from aliases.
+Changed abbr to span.
+Cleaned up CSS.
+Cleaned up entity parsing.
+
+2008-08-15: 8h
+Got editor to work with Firefox 2 again (CSS changes, timer events for refreshing, and onkey handler changes).
+Simplified the keyboard navigation and dumped the onblur/onkeyup handlers in favor of onfocus/onchange.
+Fixed the pesky assertions so they don't keep popping up.
+The NodeIterator now has filters (like only Elements, or only selectable elements, etc)
+Created a forEach function and rewrite code to use it.
+
+2008-08-14: 3h
+Changed findNextNode/Block to use a NodeIterator.
+Removed entities that don't work in Firefox 2.
+Removed onblur code for inputs.
+
+2008-08-12: 8h
+Added many MathML Entity templates to the toolbar (way too many to handle).
+Added entity resolution like "&there4;"
+Added Rendering of presentation MathML.
+Improved XML prettyprinter.
+Added logbase to log.
+Fixed Tabbing so code is more intuitive.
+Fixed sourceView so it now uses updateState. 
+
+2008-08-09: 5h
+Done bugfixing for a while.
+Fixing tabbing.
+Fixing assorted bugs: selection, refreshes, Copy/Pasting, Undo/Redo. But still have some.
+
+2008-08-07: 3h
+Added accesskeys (Ctrl+X/C/V/Z/Y) to the buttons.
+Buttons are now made nicely and update their state properly (no more hand-coding all over the place).
+
+2008-08-06: 2h
+Updating Undo/Redo code so they disable/enable properly and have fewer duplicates in the undostack (by comparing the top of the undo stack with the current math).
+
+2008-08-05: 6h
+Added simple undo/redo buttons.
+Rewrote the toolbar code to be much cleaner. There is now a clean way to enable/disable templates, get their icon (for use in things like autocomplete) etc.
+Added a little better interface for the TAB key (if the user didn't edit an empty block then move on to the next block).
+Cleaned up some variable names.
+Added some auto-focusing.
+When an expression is entered its types are inferred (so they can be properly manipulated later when the user edits the expressions).
+inferTypes doesn't add ANOTHER expandable block if there is already one there.
+
+2008-08-01: 3h
+Fix toolbar so it doesn't waste resources re-rendering the buttons for templates (and look a little prettier).
+Fixed bug that clicking Classical Functions in the toolbar would error (since they are interpreted as func calls and need an argument by the parser).
+Rewrote updateListOfValidOperations to be a little nicer (non-suggestions are greyed out but still clickable).
+Fixed bug when pasting into the root.
+Moved Toolbar generation to the constructor.
+
+2008-07-31: 6h
+Fixed partialdiff to grey out when adding another letter.
+Added a MathEditor.handleRefreshed optional function that is called after every refresh.
+Added more expression parsing (for binary and unary templates.)
+Added some examples to the help documentation showing how to use added expressoin parsing.
+Hopefully fixed hanging firefox by constantly popping up "Could not parse..." errors each time the focus was lost from the text box to the alert window (infinite alerts)
+Removed some unnecessary refreshes by refreshing only when hinted to.
+ParseConvert now returns either the parsed node or an error message (that will be alerted).
+If someone inserts a mml:math tag into an input box, it just gets stripped off (useful when pasting from another MathML editor like Mathematica).
+Collapses nested operations (like "A union B union C").
+
+2008-07-30: 5h
+Fixed re-rendering problems in Firefox (Changed the onKeyDown to handle tabs. This fixes when onblur refreshes and autoselects something different than what the user clicked) 
+Added Cut/Copy/Paste buttons to the toolbar.
+Removed input checking for mml:semantics/mml:annotation-xml[@encoding='MathML-Content'].
+Fixed inserting math as a child when replacing (simple elements that get rendered as textboxes don't get re-inserted).
+Refresh less (when changing focus).
+Only flatten addition and multiplication (not subtraction or division).
+
+2008-07-18: 2h
+Added some Pretty-printing to the Connexions viewer.
+Changed so the MathML has a m: prefix (needed by Connexions).
+Fix copy-pasted partial code
+
+2008-07-18: 5h
+Adding IE support. MathEditor in IE requires the use of Tab/Shift-Tab to navigate (instead of mouse clicks).
+Added helper functions for things IE didn't have (like n.localName).
+HTML doc is now separate from MathML doc (ie doesn't allow namespaces in HTML dom).
+No longer searches for mml:math/mml:semantics/mml:annotation-xml[@ncoding="MathML-Content"] (since it was ugly and IE didn't support it)
+Added IE-specific hacks (like transformer only runs on docs, not elements)
+Pasting a new element when another is selected automatically inserts that element as the child of the new element (so we don't lose a bunch of information)
+For IE, Replaced uses of hasAttribute with getAttribute (since hasAttribute doesn't exist in IE).
+
+2008-07-09: 3h
+Added support for infering types (so expandables and such work). Bvar special-casing is gone except in expand (we now recursively expand (SLOWER))
+
+2008-06-27: 3h
+Moved adding the onclick handler until after a refresh is done.
+Added selection hilighting in Safari.
+Safari(ipod) shows all input boxes so one can "tab" through them (ipod uses "next" button instead of tab so it must already see the boxes).
+Moved the Google Ajaxslt/javelin implementation (which has some rendering problems) to js-xslt-xpath/
+
+2008-06-25: 2h
+Working on JS implementation of XSLT and Xpath. 
+Changed XSLT because Safari doesn't like gt signs so I enumerate with !=.
+Changed MathEditor.xpathNode and xpathNumber to use js implementation of XPath.
+Added logging to google's AJAXSLT.
+
+2008-06-19: 2h
+Changed the tdop parser to work in a cnxml page.
+Changed mathml-editor2.js to work in a cnxml page.
+Added subscript support via underscores.
+Updated the test file with new documentation.
+
+2008-06-16: 3h
+MathML can be either Content MathML, or in a mml:semantics/mml:annotation-xml/mml:* format
+Templates now use the @name instead of @id='template- format.
+Fixed when the editor gains focus. Fixed when entering MathML. Added the negate op. Added a "variable" css class. 
+
+2008-06-14: 2h
+Added support for adding MathML in input boxes.
+Smarter tabbing (selection doesn't reset if it doesn't have to)
+
+2008-06-13: 6h
+mathml-editor2.js: Added simple algebra insertion via the input box for things like "(a+d)*x^2+b*x+c" using http://javascript.crockford.com/tdop/index.html
+  Editor now uses kupu's CSS.
+  Editor now runs off of a textarea (instead of embedded DOM).
+  Offer MathML toggle view (similar to kupu).
+  Cleaned up some toolbar hacks (but added a few more).
+  Removed much of the SimpleJavascript parse code and removed restriction that variables must be defined before being used.
+test.xhtml:
+  Added nicer icons to toolbar categories.
+  Split up Arithmetic, Algebra, Logic into separate categories.
+  mml:cn now have input boxes in addition to mml:ci.
+  The set of reals, natural numbers, integers, primes, rational numbers now have better symbols.
+examples/kupu: Updated kupustyles to use plone's style.
+
+2008-06-08:
+Added a handleNodeReplaced hook. Added constant templates.
+
+2008-06-01: 1h
+Added template whitelists and blacklists.
+Moved xslt's to be the styleheet root, not the containing div.
+
+2008-05-27:
+Initial support for kupu. 
+fulldoc.xhtml: Updated to use out MathML format (with type annotations).
+kupuinit.js: Moved the drawer code out of the js file (so we can have Firefox2 and Firefox3 examples).
+kupu.xhtml: Added the templates and xsl to the file (ick, ugly...).
+mathml-editor2.css: Created CSS for our editor.
+mathml-editor2.js: Added some checking before we stomp over Presentation MathML. Now offers a getMathRoot() that strips blocks out.
+
+
+2008-05-26:
+Improved the toolbar (added categories). Hacked together a decent toolbar. Added hilight code so editor works in Firefox2. Constructor takes in a mathroot. isValid correctly marks a block in the root as invalid. Commented the logger.
+
+2008-05-23:
+Oh my, this is a BIG change. Here goes:
+- Moved all attributes out to constants (@id was not doc-unique, and @type stomped on MathML's definition of the attribute)
+- Moved <block> into the phil namespace.
+- FINALLY fixed the handle-special, so matrix editing works!
+- Non-selected (ie in the toolbar) blocks are grey.
+- Cleaned up a bunch of cornercases (deleting pieces, matrix columns/rows) 
+- Now have a nicer logger (div tag instead of textarea)
+
+2008-05-21:
+Fixed <mml:matrixrow> auto-creation bug (wouldn't auto-create the 1st row, so I added a row to the template)
+
+2008-05-21:
+Handles auto-inserting stuff into constructors (<mml:piece> and <mml:matrixrow>) when an expandable node is selected. Added a delete selection "toolbar" button.
+Moved test-xsl.xml to test.xml
+
+
+2008-05-21:
+Fewer alerts for mismatched input id's. Input is smarter about refreshing. Test file is a bit cleaner. Added a hideToolbar argument to MathEditor. Added some more examples.
+
+
+2008-05-20:
+Textbox input works for the most part. occasional alerts.
+
+
+2008-05-20:
+Generate <math> elements on initialization. Removed use of getElementById in favor of xpath (means less global functions and more prototyped). Fixed some @min propagation (when collapsing).
+Blocks now render as input text boxes.
+
+
+2008-05-19:
+Deleting nodes now works (very big function with many cases). MathEditor now takes arguments for the xslt and template XML. insertIntoSelection now takes a node, and insertIntoSelectionInput takes a string (possibly "delete").
+Added some friendly HTML to help the reader along the way.
+
+
+2008-05-19:
+Added @was-expanded and @min to mml:* and mml:block. Also changed the templates to have the correct @min.
+
+2008-05-19:
+math-editor2.js: Implemented @handle-special (matrix row/col addition works). CollapseExpandables works properly for exists/forall/partialdiff. Changes background when there are no empty blocks.
+test-xsl.xml: Updated UI, added handle-special. 
+
+
+2008-05-19:
+math-editor2.js: Initialize cursor when starting up. expandable blocks collapse unless they are under the selected node (or the selected node's parent). findNextBlock is a bit more sane (not just xpath). Added "not-editable" feature.
+test-xsl.xml: Added limits to the integral. Updated block rendering to look prettier. Fixed <partialdiff>, <sdev> and <limit>.
+readme.txt: Updated docs.
+
+
+2008-05-18:
+mathml-editor2.js: The listOfValidOperations now renders actual MathML in div tags for the user to select.
+template xslt: Fixed <ident/>, added <degree/> to <root/>, <partialdiff/> fixed a bit, <notsubset/> should only work on 2 elements, added limits to <product/>
+c2p xslt: fixed <inverse/>'s id to use apply. removed id's from <ident/>, <domain/>, <codomain/>, and <image/>. Added "otherwise" to piecewise. <min/> now prints "min" instead of "max".
+
+
+2008-05-18:
+mathml-editor2.js Now runs on XML Templates. Cleaned up functions.
+test-xsl.xml: Added global text editor for data entry. Changed block namespace to mathML (for id-finding). All blocks now have a type. 
+template xslt: Blocks of type bvar and expandable are inside a bvar (for presentation), and the JS ensures this when a block is expanded. Customized sum to use lowlimit/uplimit. 
+c2p xslt: Added a + for expandable blocks. <piecewise/> now uses mfenced and renders blocks between <piece/> and <otherwise/>. All ops use the id of their enclosing <apply/> for rendering.
+
+
+2008-05-17:
+Starting on v2 of the editor. Adds operations to empty blocks on click. Need to switch to templates.
