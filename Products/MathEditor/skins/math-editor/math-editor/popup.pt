@@ -93,13 +93,13 @@ margin-bottom:0;
 
 <div class="reference-link">
 <div>
-	<a target="_blank" href="/content/m26312/">Math Editor Help</a> /
+	<a target="_blank" href="http://cnx.org/content/m26312/">Math Editor Help</a> /
 	<a target="_blank" href="http://www.w3.org/TR/MathML2/">W3C MathML Reference</a>
 </div>
 
 <div>
-	<a target="_blank" href="/bug_submit_form">Report a Problem</a> /
-	<a href="mailto:feedback@cnx.org" onclick="this.href=['\u0040','il','ph','mailto:'].reverse().join('')+window.location.hostname+'?subject=MathML Editor Feedback';return true;">Submit Feedback</a>
+	<a target="_blank" href="http://cnx.org/bug_submit_form">Report a Problem</a> /
+	<a href="mailto:feedback@cnx.org" onclick="this.href=['\u0040','il','ph','mailto:'].reverse().join('')+'cnx.org'+'?subject=MathML Editor Feedback';return true;">Submit Feedback</a>
 </div>
 </div>
 <div class="para" id="cnx_eip_help_description">
@@ -113,8 +113,8 @@ Then, press Ctrl+C (Copy) to copy the MathML.
 Return to your Connexions module, place
 your cursor in the editing area (either Edit-In-Place or Full-Source) and
 press Ctrl+V (Paste) to insert the MathML equation. For more information,
-read the Connexions Math Editor <a href="/content/m26312/" target="_blank">quickstart</a>, <a href="/content/m24560/"
-target="_blank">intermediate examples</a>, and <a href="/content/m24561/"
+read the Connexions Math Editor <a href="http://cnx.org/content/m26312/" target="_blank">quickstart</a>, <a href="http://cnx.org/content/m24560/"
+target="_blank">intermediate examples</a>, and <a href="http://cnx.org/content/m24561/"
 target="_blank">reference manual</a>.
       </div>
 
