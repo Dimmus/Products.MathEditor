@@ -104,13 +104,12 @@ margin-bottom:0;
 </div>
 <div class="para" id="cnx_eip_help_description">
 The Connexions Math Editor allows you to create and
-edit MathML expressions for use in <a href="http://cnx.org/"
-target="_blank">Connexions</a>. To copy an expression to your clipboard
+edit MathML expressions. To copy an expression to your clipboard
 double-click inside the editing box but outside the text of
 the expression, or press Ctrl+A (Select All).
 Then, press Ctrl+C (Copy) to copy the MathML.
 
-Return to your Connexions module, place
+Return to your module, place
 your cursor in the editing area (either Edit-In-Place or Full-Source) and
 press Ctrl+V (Paste) to insert the MathML equation. For more information,
 read the Connexions Math Editor <a href="http://cnx.org/content/m26312/" target="_blank">quickstart</a>, <a href="http://cnx.org/content/m24560/"
