@@ -104,16 +104,15 @@ margin-bottom:0;
 </div>
 <div class="para" id="cnx_eip_help_description">
 The Connexions Math Editor allows you to create and
-edit MathML expressions for use in <a href="http://cnx.org/"
-target="_blank">Connexions</a>. To copy an expression to your clipboard
+edit MathML expressions. To copy an expression to your clipboard
 double-click inside the editing box but outside the text of
 the expression, or press Ctrl+A (Select All).
 Then, press Ctrl+C (Copy) to copy the MathML.
 
-Return to your Connexions module, place
+Return to your module, place
 your cursor in the editing area (either Edit-In-Place or Full-Source) and
 press Ctrl+V (Paste) to insert the MathML equation. For more information,
-read the Connexions Math Editor <a href="http://cnx.org/content/m26312/" target="_blank">quickstart</a>, <a href="http://cnx.org/content/m24560/"
+read the Math Editor <a href="http://cnx.org/content/m26312/" target="_blank">quickstart</a>, <a href="http://cnx.org/content/m24560/"
 target="_blank">intermediate examples</a>, and <a href="http://cnx.org/content/m24561/"
 target="_blank">reference manual</a>.
       </div>
@@ -124,9 +123,7 @@ target="_blank">reference manual</a>.
 
 
     <!-- Google Analytics tracking. -->
-    <script type="text/javascript">
-      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    <script type="text/javascript" src="http://www.google-analytics.com/ga.js">
     </script>
     <script type="text/javascript">
       try {
