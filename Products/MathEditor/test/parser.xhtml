@@ -53,12 +53,10 @@ MathUtil.rootPath = "../skins/math-editor/math-editor/";
     <script type="text/javascript" src="https://google-analytics.com/ga.js" />
     <script type="text/javascript">
       try {
-        var benchmarkTracker = _gat._getTracker("UA-7903479-1");
-        benchmarkTracker._setDomainName('cnx.org');
-        benchmarkTracker._trackPageview();                
-        var overallTracker = _gat._getTracker("UA-5033010-1");
-        overallTracker._setDomainName('cnx.org');
-        overallTracker._trackPageview();
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7903479-1']);
+        _gaq.push(['_setDomainName', '.cnx.org']);
+        _gaq.push(['_trackPageview']);                
       } catch(err) {}
     </script>
 
