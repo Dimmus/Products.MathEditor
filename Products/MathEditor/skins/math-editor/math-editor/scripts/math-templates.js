@@ -166,13 +166,18 @@ MathEditor_Templates = {
 			veryverythickmathspace : MATH_HUNIT
 		}
 	},
-	//	"mpadded" : {
-	//		name : "mpadded",
-	//		elementType : "private",
-	//		returnType : "any",
-	//		args : [ "any" ],
-	//		attributes : {}
-	//	},
+	"mpadded" : {
+		name : "mpadded",
+		elementType : "private",
+		returnType : "any",
+		args : [ "any" ],
+		attributes : { 
+		  width : MATH_HUNIT,
+		  lspace : MATH_HUNIT,
+		  height : MATH_VUNIT,
+		  depth : MATH_VUNIT
+        }
+	},
 	"mphantom" : {//TODO change XSLT so phantom's are shown lightly
 		name : "mphantom",
 		elementType : "private",
