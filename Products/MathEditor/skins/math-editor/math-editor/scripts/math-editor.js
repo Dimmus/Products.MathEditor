@@ -12,6 +12,7 @@ function MathEditor(textBox, c2p) {
 				'Would you like to try it anyway?')) {
 			return;
 		}
+		c2p = "xsl/c2p-webkit.xsl";
 	}
 	
 	this._textBox = new Ext.form.TextArea({applyTo:textBox, hidden:false, selectOnFocus:true, validator:function(xml){
@@ -46,7 +47,7 @@ function MathEditor(textBox, c2p) {
 		this.statusBar.showBusy("Loading Initial XML");
 
 		
-		c2p = MathUtil.getXsl("xsl/c2p.xsl");
+		c2p = MathUtil.getXsl(c2p || "xsl/c2p.xsl");
 		var previewXslt = MathUtil.getXsl("xsl/preview.xsl");
 		var xml = textBox.value;
 		var doc = this.guiParseXML(xml).doc || MathUtil.parseFromString('<math xmlns="http://www.w3.org/1998/Math/MathML" />');

@@ -26,6 +26,13 @@ function MathRender(model, c2pXslt, divDestination, previewXslt, editor, xmlDoc)
 		this._previewTransformer = new XSLTProcessor();
 		this._previewTransformer.importStylesheet(previewXslt);
 	}
+	if (!Ext.isGecko) {
+		this._webkitTransformer = new XSLTProcessor();
+	    this._webkitTransformer.importStylesheet(MathUtil.getXsl("xsl/math-editor-webkit.xsl"));
+
+		this._webkit2Transformer = new XSLTProcessor();
+	    this.webkit2Transformer.importStylesheet(MathUtil.getXsl("xsl/math-editor-webkit-pass3.xsl"));		
+	}
 	this._dest = divDestination;
 	this._dest.className = "math-editor-main";
 	this._dest._mathRender = this; // Attach a MathRender for callbacks from
@@ -88,8 +95,18 @@ MathRender.prototype.transform = function(domNode, usePreview) {
 		var fragment = this._previewTransformer.transformToFragment(clone,
 				document);
 	} else {
-		var fragment = this._c2pTransformer
+        if (Ext.isGecko) {
+			var fragment = this._c2pTransformer
 				.transformToFragment(clone, document);
+        } else {
+        	// If WebKit, run it through 3 stylesheets;
+        	//  * Sprinkle editing boxes and id's on the original mathml
+        	//  * Then transform the c2p
+        	//  * Then change the elements so they are in the XHTML namespace
+	        var fragment = this._webkitTransformer.transformToFragment(clone, document)
+    		fragment = this._c2pTransformer.transformToFragment(fragment, document);
+	        fragment = this._webkit2Transformer.transformToFragment(fragment, document)
+        }
 	}
 	var newMath = document.createElementNS(NS_MATHML, "math");
 	newMath.appendChild(fragment);

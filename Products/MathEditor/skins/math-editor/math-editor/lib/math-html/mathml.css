@@ -1,0 +1,696 @@
+math
+{
+	display:inline-block;
+	vertical-align:middle;
+	font-size: 100%;
+	line-height:100%; 
+	font-family:serif;
+	page-break-inside:avoid;
+	white-space:nowrap;
+	position:relative;
+	top:-0.06em; /*just a hack to get things aligned, but it depends on the fonts and fontsizes used in math elements and the body. 
+				       optomized for firefox - there is a AppleInlineHack() function in the js to sort out webkit browsers */
+}
+math[display="block"], math[mode="display"]
+{	
+	display:block;
+	text-align:center;
+	margin:0.8em 0;
+}
+
+mrow {display:inline-block; vertical-align:middle; position:relative; white-space:nowrap; } 
+
+math img{border:0;}
+
+
+
+/*** LEAF TAGS ***/
+
+mn, mi, mo, ms, mtext {padding-right:0.1em; position:relative; display:inline-block; vertical-align:middle;}
+
+mi {font-style:italic;}
+
+mo {font-family: serif, "Lucida Sans Unicode";}
+mo {padding:0 0.3em 0 0.25em} /*The js file removes padding on mo objects which don't need it eg. comma, parentheses*/
+/* mo[largeop="true"] */    /*{font-size:1.3em; vertical-align:-0.1ex;}*/   /*Handled by js as this can detect large ops by default*/
+mo[form="infix"]            {padding: 0 0.2em;}
+mo[form="prefix"]          {padding: 0 0 0 0.2em;}
+mo[form="postfix"]        {padding: 0 0.2em 0 0;}
+mo[superpadded="true"]{padding: 0 0.5em;}
+mo[fence="true"],
+mo[padded="false"],
+mo[separator="true"] {padding: 0;}
+
+
+
+
+/*** STYLES ***/
+
+mspace, mpadded {display:inline-block; vertical-align:middle;} /* Other attributes need to be dealt with by the js file */
+
+[mathvariant*="normal"] ,
+[fontstyle*="normal"]           {font-style:normal;}
+[fontweight*="normal"]         {font-weight:normal;}
+[mathvariant*="bold"], 
+[fontweight*="bold"]             {font-weight:bold;      font-style:normal;}
+[mathvariant*="monospace"] {font-family:monospace; font-style:normal;}
+[mathvariant*="italic"] ,      
+[fontstyle*="italic"]           {font-style:italic;}
+[mathvariant*="serif"]         {font-family:serif;}
+
+[fontfamily*="serif"]          {font-family: serif;}
+[fontfamily*="times"]          {font-family: "Times New Roman", times, serif;}
+[fontfamily*="arial"]          {font-family: arial;}
+[fontfamily*="verdana"]      {font-family: verdana;}
+[fontfamily*="georgia"]      {font-family: georgia;}
+[fontfamily*="unicode"]      {font-family: "lucida sans unicode";}
+[fontfamily*="helvetica"]  {font-family: helvetica, "Trebuchet MS", arial;}
+[fontfamily*="monospace"]  {font-family: monospace;}
+[fontfamily*="comic"]          {font-family: "comic sans ms";}
+[fontfamily*="courier"]      {font-family: "Courier New", Courier, monospace;}
+[fontfamily*="tahoma"]        {font-family: tahoma, arial;}
+
+/*TODO: embed a font if certain ones aren't available*/
+[mathvariant*="verb"]     {font-family: "Courier New", Courier, monospace;}
+
+[mathvariant*="script"] 
+{
+	font-family: "Euclid Math One", Mathematica5, "techexplorer Symbol A", "Monotype Corsiva", Arioso, "Curlz MT", "Blackadder ITC", "Script MT Bold", Gigi, "Edwardian Script ITC", "Palace Script MT", "Comic Sans MS", cursive;
+	font-style:normal;
+} 
+
+[mathvariant*="fraktur"],
+[mathvariant*="gothic"]
+{
+	font-family: Mathematica6, "Lucida Blackletter", "Euclid Fraktur", Mathematica6mono, "Comic Sans MS", serif;
+	font-style:normal;
+}
+
+[mathvariant*="struck"] {font-family: "Euclid Math Two";}
+
+
+
+
+/***   MTABLE  ***/
+
+mtable
+{
+	display:inline-table;
+	vertical-align:middle;
+	border-collapse:collapse;
+	text-align:center;
+}
+mtr, mlabeledtr {display:table-row}
+mtd
+{
+	display:table-cell;
+	line-height:1.0em;
+	white-space:nowrap;
+	padding:0.2em 0.36em;
+}
+[columnalign="left"]       {text-align:left;}
+[columnalign="right"]     {text-align:right;}
+[columnalign="center"]   {text-align:center;}
+[columnalign="justify"] {text-align:justify;}
+
+[rowalign="top"]             {vertical-align:top;}
+[rowalign="bottom"]       {vertical-align:bottom;}
+[rowalign="center"]       {vertical-align:middle;}
+[rowalign="baseline"]   {vertical-align:baseline;}
+
+mtable[frame="solid"] {border:solid thin;}
+mtable[frame="dashed"]{border:dashed thin;}
+mtable[rowlines="solid"], mtable[rowlines="dashed"], mtable[columnlines="solid"], mtable[columnlines="dashed"] {border-collapse:collapse;}
+mtable[rowlines="solid"] > mtr + mtr {border-top:solid thin;}
+mtable[rowlines="dashed"] > mtr + mtr {border-top:dashed thin;}
+mtable[columnlines="solid"] > mtr > mtd + mtd {border-left:solid thin;}
+mtable[columnlines="dashed"] > mtr > mtd + mtd {border-left:dashed thin;}
+
+
+math[display="inline"] mtable:not([displaystyle]),
+math:not([display]) mtable:not([displaystyle]),
+mtable[displaystyle="false"]
+	{font-size:75%; line-height:100%;}
+   
+math[display="inline"] mtable:not([displaystyle]) > * > mtd,
+math:not([display]) mtable:not([displaystyle]) > * > mtd,
+mtable[displaystyle="false"] > * > mtd
+	{padding: 0.1em 0.2em;}
+  
+
+
+/***  FRACTIONS ***/
+
+mfrac
+{
+	display:inline-block;
+	vertical-align:0.5ex;
+	text-align:center;
+	line-height:0;
+	margin:0 2px;
+	position:relative;
+	white-space:nowrap;
+}
+mfrac > *
+{
+	display:inline-block;
+	line-height:1.2em;
+	font-size:0.9em;
+	position:relative;
+}
+mfrac > *:first-child {display:block; border-bottom:solid 1px;}
+mfrac > * + *                  {display:inline-block; vertical-align:top;}
+
+math[display="inline"] mfrac, math:not([display]) mfrac {vertical-align:middle;} /* This is for the benefit of webkit browsers, not needed for firefox or opera*/
+
+/* Vulgar fractions */
+mfrac[bevelled="true"]
+{
+	display:inline-block;
+	vertical-align:middle;
+	margin:0em;
+}
+mfrac[bevelled="true"] > *:first-child
+{
+	display:inline-block;
+	vertical-align:middle;
+	position:relative;
+	width:auto;
+	top:0.0em;
+	border-bottom:0 none;
+}
+mfrac[bevelled="true"] > * + *
+{
+	display:inline-block;
+	vertical-align:middle;
+	clear:none;
+	float:none;
+	width:auto;
+	position:relative;
+	top:0.3em;
+	left:0.0em;
+	margin: 0 0 0 -0.1em;
+	border-top:0 none;
+}
+mfrac[bevelled="true"] > * + *:before {content: "/";}
+
+
+mfrac[linethickness="0"] > *:first-child                                                                                              {border-bottom:none;}
+mfrac[linethickness="2"] > *:first-child, mfrac[linethickness="medium"] > *:first-child   {border-bottom-width:medium;}
+mfrac[linethickness="3"] > * :first-child, mfrac[linethickness="thick"] > *:first-child    {border-bottom-width:thick;}
+
+mfrac[numalign="left"] > *:first-child,  mfrac[denalign="left"] > * + * ,  mfrac[denomalign="left"] > * + *   {text-align:left;}
+mfrac[numalign="right"] > *:first-child, mfrac[denalign="right"] > * + *, mfrac[denomalign="right"] > * + *  {text-align:right;}
+
+
+math[display="inline"] mfrac:not([displaystyle]),
+math:not([display]) mfrac:not([displaystyle]),
+mfrac[displaystyle="false"]
+{font-size:75%; line-height:100%;}
+
+
+mfrac mfrac {font-size:75%; line-height:100%; margin-bottom:0 0.1em; margin:0em;}
+
+mfrac mfrac mfrac {font-size:inherit;} /*Dont want the font size getting too small for multiple fractions*/
+
+
+/***  MUNDER, MOVER, MUNDEROVER ***/
+
+munderover, munder, mover, moverbrace
+{
+	display:inline-table;
+	/*vertical-align:middle;*/
+	white-space:nowrap;
+	margin-left:0.2em;
+	margin-right:0.1em;
+}
+munder > *, mover > *, munderover > *, moverbrace > *                             {display:table-row; text-align:center;}
+mover  > * + *,  munderover > * + * + *, moverbrace > * + *                    {display:table-caption;}
+munder > * + *, mover > * + *, munderover > * + *, moverbrace > * + * {line-height:100%; font-size:75%;}		
+
+mover mover, munder munder {margin:0;}
+
+	
+mover, moverbrace{
+	position:relative;
+	/*vertical-align:middle; */
+	vertical-align:text-bottom;	
+}
+munder {
+	position:relative;
+	/*vertical-align:middle; */
+	vertical-align:text-top;
+	bottom:-0.1em;
+}
+munderover {
+	position:relative;
+	vertical-align:text-top; 
+	bottom:0.6em;
+}
+
+munderover > * + * + *, mover > * + *  /* top element */
+{
+	margin-top: 0em;
+	margin-bottom: -0.15em; /*NOTE: if there's large operators with images involved, this is set to zero in the js file. */
+}
+
+mover[accent="true"] > * + * , munder[accent="true"] > * + *,
+mover[accentover="true"] > * + *,
+munder[accentunder="true"] > * + *
+{
+	line-height:50%;
+	bottom:-0.0em;
+}
+
+moverbrace /* this is not standard mathML notation*/
+{
+	margin-bottom:-0.15em;
+	border-top-width: 0.8em;
+	-webkit-border-image: url(Stretchy/overbrace.png) 18 0 0 0 stretch;
+	-moz-border-image:    url(Stretchy/overbrace.png) 18 0 0 0 stretch;
+	-o-border-image:      url(Stretchy/overbrace.png) 18 0 0 0 stretch;
+	border-image:         url(Stretchy/overbrace.png) 18 0 0 0 stretch;
+}
+
+
+
+
+/***  MFENCED  ***/
+
+mfenced
+{
+	display:inline-block;
+	position:relative;
+	vertical-align:middle;
+}
+
+mfenced[open="|"],  mfenced[open="\2223"]     {border-left: 1px solid; padding: 0 0.1em 0 0.2em; margin:0 0.2em;}
+mfenced[close="|"], mfenced[close="\2223"]   {border-right:1px solid; padding: 0 0.1em 0 0.2em; margin:0 0.2em;}
+
+mfenced[open="||"],  mfenced[open="\2225"]   {border-left: 4px double; padding: 0 0.1em 0 0.2em; margin:0 0.2em;}
+mfenced[close="||"], mfenced[close="\2225"] {border-right:4px double; padding: 0 0.1em 0 0.2em; margin:0 0.2em;}
+
+mfenced[open="("][close=")"]
+{
+	border-left-width: 0.6em; border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/twinparen.png) 0 14 0 14 stretch;
+	-moz-border-image:    url(Parentheses/twinparen.png) 0 14 0 14 stretch;
+	-o-border-image:      url(Parentheses/twinparen.png) 0 14 0 14 stretch;
+	border-image:         url(Parentheses/twinparen.png) 0 14 0 14 stretch;
+}
+mfenced[open="{"][close="}"]
+{
+	border-left-width: 0.6em; border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/twinbrace.png) 0 14 0 14 stretch;
+	-moz-border-image:    url(Parentheses/twinbrace.png) 0 14 0 14 stretch;
+	-o-border-image:      url(Parentheses/twinbrace.png) 0 14 0 14 stretch;
+	border-image:         url(Parentheses/twinbrace.png) 0 14 0 14 stretch;
+}
+mfenced[open="{"][close=""]
+{
+	border-left-width: 0.6em;
+	-webkit-border-image: url(Parentheses/leftbrace.png) 0 0 0 14 stretch;
+	-moz-border-image:    url(Parentheses/leftbrace.png) 0 0 0 14 stretch;
+	-o-border-image:      url(Parentheses/leftbrace.png) 0 0 0 14 stretch;
+	border-image:         url(Parentheses/leftbrace.png) 0 0 0 14 stretch;
+}
+mfenced[open=""][close="}"]
+{
+	border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/rightbrace.png) 0 14 0 0 stretch;
+	-moz-border-image:    url(Parentheses/rightbrace.png) 0 14 0 0 stretch;
+	-o-border-image:      url(Parentheses/rightbrace.png) 0 14 0 0 stretch;
+	border-image:         url(Parentheses/rightbrace.png) 0 14 0 0 stretch;
+}
+mfenced[open="["][close="]"]
+{
+	border-left-width: 0.6em; border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/twinbracket.png) 0 14 0 14 stretch;
+	-moz-border-image:    url(Parentheses/twinbracket.png) 0 14 0 14 stretch;
+	-o-border-image:      url(Parentheses/twinbracket.png) 0 14 0 14 stretch;
+	border-image:         url(Parentheses/twinbracket.png) 0 14 0 14 stretch;
+}
+mfenced[open="\2229"][close="\222A"], mfenced[open="\27E8"][close="\27E9"] /*angular brackets*/
+{
+	border-left-width: 0.6em; border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/twinangular.png) 0 15 0 15 stretch;
+	-moz-border-image:    url(Parentheses/twinangular.png) 0 15 0 15 stretch;
+	-o-border-image:      url(Parentheses/twinangular.png) 0 15 0 15 stretch;
+	border-image:         url(Parentheses/twinangular.png) 0 15 0 15 stretch;
+}
+mfenced[open="\230A"][close="\230B"] /*floor*/
+{
+	border-left-width: 0.6em; border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/twinfloor.png) 0 14 0 14 stretch;
+	-moz-border-image:    url(Parentheses/twinfloor.png) 0 14 0 14 stretch;
+	-o-border-image:      url(Parentheses/twinfloor.png) 0 14 0 14 stretch;
+	border-image:         url(Parentheses/twinfloor.png) 0 14 0 14 stretch;
+}
+mfenced[open="\2308"][close="\2309"] /*ceiling*/
+{
+	border-left-width: 0.6em; border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/twinceiling.png) 0 14 0 14 stretch;
+	-moz-border-image:    url(Parentheses/twinceiling.png) 0 14 0 14 stretch;
+	-o-border-image:      url(Parentheses/twinceiling.png) 0 14 0 14 stretch;
+	border-image:         url(Parentheses/twinceiling.png) 0 14 0 14 stretch;
+}
+mfenced[open="("][close="]"]
+{
+	border-left-width: 0.6em; border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/parenbracket.png) 0 14 0 14 stretch;
+	-moz-border-image:    url(Parentheses/parenbracket.png) 0 14 0 14 stretch;
+	-o-border-image:      url(Parentheses/parenbracket.png) 0 14 0 14 stretch;
+	border-image:         url(Parentheses/parenbracket.png) 0 14 0 14 stretch;
+}
+mfenced[open="["][close=")"]
+{
+	border-left-width: 0.6em; border-right-width: 0.6em;
+	-webkit-border-image: url(Parentheses/bracketparen.png) 0 14 0 14 stretch;
+	-moz-border-image:    url(Parentheses/bracketparen.png) 0 14 0 14 stretch;
+	-o-border-image:      url(Parentheses/bracketparen.png) 0 14 0 14 stretch;
+	border-image:         url(Parentheses/bracketparen.png) 0 14 0 14 stretch;
+}
+
+
+	
+/***  SUB, SUP, SUBSUP ***/
+
+msubsup, msub, msup
+{
+	display:inline-block;
+	position:relative;
+	vertical-align:middle;
+}
+
+msubsup {margin-right:-0.2em;}
+
+/* root element */
+msubsup > *:first-child, msub > *:first-child, msup > *:first-child
+{
+	display:inline-block;
+	position:relative;
+}
+msub > * + *
+{
+	display:inline-block;
+	vertical-align:bottom;
+	position:relative;
+	top:0.3em;
+	left:-0.06em;
+	font-size: 75%;
+	line-height: 100%;
+}
+msup > * + *
+{
+	display:inline-block;
+	vertical-align:top;
+	position:relative;
+	bottom:0.3em;
+	font-size: 0.75em;
+	line-height: 100%;
+}
+
+
+msup > msup + * {bottom:0.6em;}
+msub > msub + * {top:0.8em;}
+
+msub > mo:first-child + *, msup > mo:first-child + *  {left:-0.06em; padding-right:0.3em;}
+msub > mo:first-child,    msup > mo:first-child          {padding-left:0.3em;}
+
+/*superscript*/
+msubsup > * + * + *
+{
+	display:inline-block;
+	vertical-align:top;
+	position:relative;
+	bottom:0.3em;
+	font-size: 75%;
+	line-height: 100%;
+}
+
+/*subscript*/
+msubsup > *:nth-child(2)
+{
+	display:inline-block;
+	vertical-align:bottom;
+	position:relative;
+	top:0.3em;
+	font-size: 75%;
+	line-height: 100%;
+}
+
+
+msup msup msup > * + *, msub msub msub > * + *, /*Dont want the font size getting too small for multiple fractions*/
+msup msup msub > * + *, msub msub msup > * + *,
+msup msub msup > * + *, msub msup msub > * + *,
+msub msup msup > * + *, msup msub msub > * + *, /*TODO: there's more!*/
+msubsup msubsup msubsup > * + *
+{
+	font-size:inherit;
+}
+
+
+
+
+/***SQRT and ROOT ***/
+
+
+msqrt, menclose[notation="radical"], mroot > *:first-child
+{
+	display:inline-block;
+	vertical-align:middle;
+	border-left-width:0.8em;
+	border-top: 1px solid; /*TODO: shouldn't need this if we redo the image properly*/
+	-webkit-border-image: url(Misc/sqrt.png) 4 0 0 28 stretch;
+	-moz-border-image:    url(Misc/sqrt.png) 4 0 0 28 stretch;
+	-o-border-image:      url(Misc/sqrt.png) 4 0 0 28 stretch;
+	border-image:         url(Misc/sqrt.png) 4 0 0 28 stretch;
+	
+	
+}
+mroot
+{
+	direction:rtl;
+	display:inline-block;
+	vertical-align:middle;
+}
+mroot > *:first-child
+{
+	direction:ltr;
+}
+mroot > * + *
+{
+	direction:ltr;
+	display:inline-block;
+	vertical-align:top;
+	font-size:75%;
+	position:relative;
+	top:-0.5em;
+	left:0.6em;
+}
+
+
+
+
+
+
+/***  MENCLOSE ***/
+
+menclose {display:inline-block; vertical-align:middle;}
+
+menclose:not([notation]), menclose[notation="longdiv"], mlongdiv
+{
+	border-left-width:10px;
+	border-top-width:1px;
+	-webkit-border-image: url(Misc/longdiv.png) 1 0 0 10 stretch;
+	-moz-border-image:    url(Misc/longdiv.png) 1 0 0 10 stretch;
+	-o-border-image:      url(Misc/longdiv.png) 1 0 0 10 stretch;
+	border-image:         url(Misc/longdiv.png) 1 0 0 10 stretch;
+}
+menclose[notation="actuarial"] {border-top:1px solid; border-right:1px solid}
+menclose[notation="box"]		   {border: 1px solid; padding:0.4em;}
+menclose[notation="roundedbox"] 				
+{
+	border: 1px solid;
+	padding:0.4em;
+	-webkit-border-radius:8px;	
+	-moz-border-radius:8px;
+	-o-border-radius:8px;
+	border-radius:8px;
+}
+menclose[notation="circle"] /* It's not possible to use css to draw ellipses but you could fake it with setting rounded corders to the right size for all the different size circles*/
+{							/*TODO: Could probably do this with a border image though  */
+	border: 2px solid;
+	padding:0.4em;
+	-webkit-border-radius:18px;	
+	-moz-border-radius:18px;
+	-o-border-radius:18px;
+	border-radius:18px;
+}
+menclose[notation="nested roundedbox"]
+{
+	border: 4px double;
+	padding:0.4em;
+	-webkit-border-radius:8px;	
+	-moz-border-radius:8px;
+	-o-border-radius:8px;
+	border-radius:8px;
+}
+menclose[notation="nested circle"]
+{
+	border: 5px double;
+	padding:0.4em;
+	-webkit-border-radius:18px;
+	-moz-border-radius:18px;
+	-o-border-radius:18px;
+	border-radius:18px;
+}
+
+menclose[notation="left"] 					{border-left:1px solid; padding-left:3px;}
+menclose[notation="right"] 					{border-right:1px solid;}
+menclose[notation="top"] 						{border-top:1px solid;}
+menclose[notation="bottom"] 					{border-bottom:1px solid;}
+menclose[notation="updiagonalstrike"] 		{}
+menclose[notation="downdiagonalstrike"] 		{}
+menclose[notation="verticalstrike"] 			{}
+menclose[notation="horizontalstrike"] 		{text-decoration: line-through;} /*doesn't quite work as expected*/
+menclose[notation="empty attr"] 				{}
+menclose[notation="bad attr"] 				{}
+menclose[notation="cross out"]				 {}
+menclose[notation="radical circle"]			 {}
+menclose[notation="all sides and all strikes"]{}
+menclose[notation="nested roundedbox"]		 {}
+menclose[notation="nested circle"]			 {}
+
+
+
+
+
+/*** FUDGES ***/
+
+mfrac > * + mrow > msqrt
+{
+	margin-top:0.2em;
+	margin-bottom:-0.4em
+}
+
+msqrt msqrt {margin-top:0.2em;}
+
+msub > *:first-child, msub > mrow:first-child > *:last-child {padding-right:0;}
+
+mroot > * + * mfrac {line-height:100%;}
+
+/* Operators which appear in subscripts and superscripts and other small things need less padding */
+munder>*+* mo,
+mover>*+* mo,
+munderover>*+* mo, 
+munderover>*+*+* mo,
+msub>*+* mo,
+msup>*+* mo,
+msubsup>*+* mo, 
+msubsup>*+*+* mo
+{
+padding:0 0.15em 0 0.1em;
+}
+
+
+
+
+
+
+/*** script levels done after any other stuf like   mfrac mfrac mfrac  ***/
+
+[scriptlevel^="4"]   {font-size: 50%; }
+[scriptlevel^="3"]   {font-size: 60%; }
+[scriptlevel^="2"]   {font-size: 70%; }
+[scriptlevel^="1"]   {font-size: 85%; }
+[scriptlevel^="0"]   {font-size: 100%;}
+[scriptlevel^="-1"] {font-size: 120%;}
+[scriptlevel^="-2"] {font-size: 144%;}
+[scriptlevel^="-3"] {font-size: 173%; background:pink;}
+[scriptlevel^="-4"] {font-size: 207%;}
+[scriptlevel^="-5"] {font-size: 239%;}
+/*Note that the above script level will not take into account non-integers (in that the numbers get rounded up or down), but if you have any of these then you can add them yourself eg [scriptlevel="-1.5"] {font-size: 131%;} */
+[scriptlevel^="-1.5"] {font-size: 131%;}
+[scriptlevel^="-2.5"] {font-size: 158%;}
+
+
+/*** Other W3C stuff   ***/
+
+none{content:"\A0";}
+
+mphantom {visibility:hidden;}
+
+ms:before                 {content: '"'}
+ms:after                   {content: '"'}
+ms[lquote]:before {content:attr(lquote)}
+ms[rquote]:after   {content:attr(rquote)}
+
+
+mstack, mlongdiv {display:inline-table;}
+mstack
+{
+	text-align:right;
+	border-collapse:collapse;
+}
+mstack[align='top'], mlongdiv[align='top']             {vertical-align:top;}
+mstack[align='bottom'], mlongdiv[align='bottom'] {vertical-align:bottom;}
+mstack[align='center'], mlongdiv[align='center'] {vertical-align:middle;}
+msline
+{
+	display:inline-block;
+	border-bottom:solid thin;
+}
+mstack > *, mlongdiv > mn:first-child {display:table-row;}
+
+	
+	
+mlongdiv > *:first-child + * {display:table-cell;}
+mlongdiv > *:first-child + * + * {border-top:solid thin;}
+mlongdiv > *:first-child:before
+{
+	display:table-cell;
+	content:'\A0';
+}
+mlongdiv > *:first-child + *:after {content:')';}
+mlongdiv > * {display:block;}
+mscarry {display:none;}
+maction > * + * {display:none;}
+maction[actiontype="tooltip"]:focus > * + *,
+maction[actiontype="tooltip"]:hover > * + *
+{
+	position:fixed;
+	display:block;
+	top:0;
+	left:0;
+	background-color:InfoBackground;
+	color:InfoText;
+	padding:0.5ex;
+	border:solid 1px;
+}
+annotation, annotation-xml {display:none;}
+
+
+
+
+/*   Below is a method which you could use to number equations, but so far it doesn't work in webkit browsers   */
+/*
+.setcounter_eq
+{
+counter-reset: eq;  
+}
+
+math[display="block"]:before
+{
+	content:"(" counter(eq) ")";
+	counter-increment:eq;
+	display:inline-block;
+	float:right;
+	position:relative;
+	vertical-align:middle;
+}
+*/	
+
+
+
+

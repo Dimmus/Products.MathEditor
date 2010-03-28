@@ -392,16 +392,25 @@ MathUtil.removeClassName = function(element, className) {
 MathUtil.getXsl = function(relativePath) {
 	assert(MathUtil.rootPath != undefined,
 			"MathEditor.rootPath MUST be set to something (in the html file)!");
-	// Build an XSLT that just imports. That way the path for subsequent imports
-	// is correct.
-	var str = '<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">'
-			+ '<xsl:import href="'
-			+ MathUtil.rootPath
-			+ relativePath
-			+ '"/>'
-			+ '</xsl:stylesheet>';
-	var xsl = MathUtil.parseFromString(str, /*ignoreDTD*/true);
-
+    if (Ext.isGecko) {
+        // Build an XSLT that just imports. That way the path for subsequent imports
+        // is correct.
+        var str = '<xsl:stylesheet version="1.0" '
+                + ' xmlns:xsl="http://www.w3.org/1999/XSL/Transform">'
+                + '<xsl:import href="'
+                + MathUtil.rootPath
+                + relativePath
+                + '"/>'
+                + '</xsl:stylesheet>';
+    } else {
+        // Safari/Chrome ignore xsl:import so here we load using xmlhttp
+        var req = new XMLHttpRequest();  
+        req.open("GET", relativePath, false);
+        req.send(null);  
+        assert(req.status == 200, "ERROR: Could not find " + relativePath);  
+        var str = req.responseText;
+    }
+	var xsl = MathUtil.parseFromString(str, /*useDTD*/false);
 	return xsl;
 };
 

@@ -86,7 +86,32 @@ function MathInput(editor, render, div) {
 		//'del':this._keyBackspace, Handled by KeyMap
 		'enter': function(e) {e.stopEvent(); this.handleReturn(e);},
 		defaultEventAction:'stopPropagation',
-		scope:this
+		scope:this,
+
+        /* TODO: enable and disable are overridden because of an ExtJs Bug with chrome. See ext-all-debug.js */
+        enable: function(){
+            if(this.disabled){
+                if(this.forceKeyDown || Ext.isIE || Ext.isSafari3 || Ext.isAir || Ext.isChrome){
+                    this.el.on("keydown", this.relay,  this);
+                }else{
+                    this.el.on("keydown", this.prepareEvent,  this);
+                    this.el.on("keypress", this.relay,  this);
+                }
+                this.disabled = false;
+            }
+        },
+        disable: function(){
+            if(!this.disabled){
+                if(this.forceKeyDown || Ext.isIE || Ext.isSafari3 || Ext.isAir || Ext.isChrome){
+                    this.el.un("keydown", this.relay, this);
+                }else{
+                    this.el.un("keydown", this.prepareEvent, this);
+                    this.el.un("keypress", this.relay, this);
+                }
+                this.disabled = true;
+            }
+        },
+
 	});
 	new Ext.KeyMap(this.cursor.getEl(),{
 		key:[Ext.EventObject.BACKSPACE, Ext.EventObject.DELETE],
@@ -508,6 +533,10 @@ MathInput.onfocusBlock = function(event, input, id) {
 
 	// Use model to look up by ID
 	mathInput.setPositionById(id, /*isAfter?*/false, /*forceSelect?*/true);
+};
+
+MathInput.onblurBlock = function(event, input, id) {
+	//No-op, but still in the XSLT
 };
 
 /*
