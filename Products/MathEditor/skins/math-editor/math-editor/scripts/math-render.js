@@ -31,7 +31,7 @@ function MathRender(model, c2pXslt, divDestination, previewXslt, editor, xmlDoc)
 	    this._webkitTransformer.importStylesheet(MathUtil.getXsl("xsl/math-editor-webkit.xsl"));
 
 		this._webkit2Transformer = new XSLTProcessor();
-	    this.webkit2Transformer.importStylesheet(MathUtil.getXsl("xsl/math-editor-webkit-pass3.xsl"));		
+	    this._webkit2Transformer.importStylesheet(MathUtil.getXsl("xsl/math-editor-webkit-pass3.xsl"));		
 	}
 	this._dest = divDestination;
 	this._dest.className = "math-editor-main";
