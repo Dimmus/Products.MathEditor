@@ -1,3 +1,6 @@
+MathEditor 0.4.1
+  - license text
+
 MathEditor 0.4
   - Webkit support (Chrome/Safari)
 
